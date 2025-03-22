@@ -1,0 +1,34 @@
+﻿
+
+using System.Linq.Expressions;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace TaskManegmentProject.DBcontcion
+{
+    public class TMContextDB:IdentityDbContext<ApplicationUser,IdentityRole,string>
+    {
+
+        public DbSet<WorkSpace> WorkSpaces { get; set; }
+        public DbSet<MemberWorkSpace> MemberWorkSpace { get; set; }
+        public DbSet<MessageChat> MessageChat { get; set; }
+        public DbSet<MessageMentions> MessageMentions { get; set; }
+        public DbSet<Notification> Notification { get; set; }
+        public DbSet<MyTask> MyTask { get; set; }
+        public DbSet<TaskAssignment> TaskAssignment { get; set; }
+
+
+
+        public TMContextDB(DbContextOptions option):base(option)
+        {
+            
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            
+        }
+    }
+}
