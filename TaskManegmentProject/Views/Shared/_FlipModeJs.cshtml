@@ -1,0 +1,20 @@
+﻿<script>
+    function flipForm() {
+        const container = document.querySelector('.card-container');
+        container.classList.toggle('animate');
+    }
+
+    function swichMode() {
+        document.body.classList.toggle('dark');
+        const modeIcon = document.getElementById('mode-icon').getAttribute("src");
+        if(modeIcon == "/img/icons/sun.svg" ){
+            document.getElementById('mode-icon').setAttribute("src", "/img/icons/moon.svg");
+        }else{
+            document.getElementById('mode-icon').setAttribute("src", "/img/icons/sun.svg");
+        }
+
+    }
+
+
+    swichMode();
+</script>

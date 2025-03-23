@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using TaskManegmentProject.DBcontcion;
 using TaskManegmentProject.Repos;
+using Microsoft.Extensions.Options;
 
 
 
@@ -46,6 +47,12 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(op =>
     op.Password.RequireNonAlphanumeric = false;
 }).AddEntityFrameworkStores<TMContextDB>();
 
+builder.Services.ConfigureApplicationCookie(op =>
+{
+    op.LoginPath = "/Account/Login"; 
+    op.AccessDeniedPath = "/Account/AccessDenied"; 
+    op.LogoutPath = "/Account/Logout"; 
+});
 
 builder.Services.AddScoped<ITaskRepository,TaskRepository>();
 builder.Services.AddScoped<IWorkSpaceRepository, WorkSpaceRepository>();
@@ -71,13 +78,15 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseSession();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Account}/{action=login}")
     .WithStaticAssets();
 
 app.MapRazorPages()

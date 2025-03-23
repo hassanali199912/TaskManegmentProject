@@ -1,0 +1,70 @@
+@media only screen and (max-width: 750px) {
+
+    .main-section {
+        padding: 1rem;
+    }
+
+
+    .side-nav-bar {
+        height: 97vh !important;
+        position: fixed !important;
+        z-index: 1000;
+        top: 10px;
+        left: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        width: 200px;
+        transform: translateX(-210px);
+        transition: all .5s ease-in-out;
+    }
+
+    .side-nav-bar .menue-div {
+        display: block;
+        position: absolute;
+        background-color: aliceblue;
+        top: 30px;
+        right: -32px;
+        background-color: var(--light-dark);
+        padding: .5rem .5rem;
+        border: 1px solid transparent;
+        border-radius: 0px 5px 5px 0px;
+        border-top-color: var(--gray-color);
+        border-right-color: var(--gray-color);
+        border-bottom-color: var(--gray-color);
+        cursor: pointer;
+        color: var(--black-color);
+        transition: all .5s ease-in-out;
+    }
+
+    .side-nav-bar .menue-div i {
+        transition: all .5s ease-in-out;
+    }
+
+    .side-nav-bar.active {
+        transform: translateX(0px);
+    }
+
+    .side-nav-bar.active .menue-div i {
+        transform: rotate(180deg);
+    }
+
+
+
+}
+
+@media only screen and (max-width: 600px) {
+
+
+    .task-section .header-controls .memebers-plus, .task-section .header-controls .notification-bell {
+        position: static;
+
+    }
+
+    .task-section .header-controls .memebers-plus .user-plus-popup,
+    .task-section .header-controls .notification-bell .notification-bell-popup {
+        top: 70px;
+        width: 100%;
+    }
+
+
+
+}
