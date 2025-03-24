@@ -193,7 +193,7 @@ table {
     position: relative;
     max-width: 500px;
     width: 90%;
-    min-height: 500px;
+    /*min-height: 500px;*/
     perspective: 1000px;
 }
 
@@ -399,7 +399,7 @@ table {
     transition: all 0.3s ease;
 }
 
- /*   [class^="shap"]:hover {
+/*   [class^="shap"]:hover {
         opacity: 1;
         transform: scale(1.1);
     }*/
@@ -486,6 +486,669 @@ table {
 
 /*#endregion Auth Pages*/
 
+/**======================================
+            Home Pages Styles
+=========================================**/
+
+/*#region Home Page*/
+
+.main-section {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+
+/*#region Side Bar Style */
+.side-nav-bar {
+    display: flex;
+    flex-basis: 200px;
+    height: 100vh;
+    background-color: var(--light-dark) !important;
+    border: 1px solid var(--gray-color) !important;
+}
+
+    .side-nav-bar .menue-div {
+        display: none;
+    }
+
+    .side-nav-bar nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0 2rem;
+        height: 100%;
+    }
+
+    .side-nav-bar .profile-div {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        width: 100%;
+        border: 1px solid transparent;
+        transition: all .3s ease-in-out;
+        cursor: pointer;
+    }
+
+        .side-nav-bar .profile-div:hover {
+            border: 1px solid var(--light-hover-dark);
+            background-color: var(--light-hover-dark);
+        }
+
+        .side-nav-bar .profile-div img {
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .side-nav-bar .profile-div p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white-color);
+            text-transform: capitalize;
+        }
+
+    .side-nav-bar .navegate-div {
+        width: 100%;
+    }
+
+        .side-nav-bar .navegate-div ul {
+            width: 100%;
+            padding: 0;
+        }
+
+            .side-nav-bar .navegate-div ul li {
+                width: 100%;
+                padding: .5rem 2rem;
+                border: 3px solid transparent;
+                color: var(--white-color);
+                font-size: .8rem;
+                transition: all .3s ease-in-out;
+            }
+
+                .side-nav-bar .navegate-div ul li:hover {
+                    background-color: var(--light-hover-dark);
+                }
+
+                .side-nav-bar .navegate-div ul li.active {
+                    background-color: var(--light-hover-dark);
+                    border-right-color: var(--green-color);
+                }
+
+                .side-nav-bar .navegate-div ul li a {
+                    padding-left: 1rem;
+                    color: var(--white-color);
+                    text-decoration: none;
+                    text-transform: capitalize;
+                }
+
+    .side-nav-bar .logout-div {
+        color: var(--white-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        font-size: .8rem;
+        border-radius: 10px;
+        width: 100%;
+        border: 1px solid transparent;
+        transition: all .3s ease-in-out;
+    }
+
+        .side-nav-bar .logout-div a {
+            color: var(--white-color);
+            text-decoration: none;
+            text-transform: capitalize;
+            font-size: 1.1rem;
+        }
+/*#endregion Side Bar Style */
+
+
+/* #region Task Style */
+.task-section {
+    flex: 1;
+    background-color: var(--light-dark) !important;
+    border: 1px solid var(--gray-color) !important;
+    padding: .5rem;
+}
+
+.task-section-content {
+    overflow: auto;
+}
+
+    .task-section-content::-webkit-scrollbar {
+        width: 10px;
+        z-index: -1;
+    }
+
+    .task-section-content::-webkit-scrollbar-thumb {
+        background-color: var(--dark-color);
+        border-radius: 10px;
+    }
+
+.task-section .task-section-header {
+    background-color: var(--light-dark);
+}
+
+.task-section .task-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    border-radius: 10px;
+    width: 100%;
+    border: 1px solid transparent;
+    transition: all .3s ease-in-out;
+    color: var(--white-color);
+}
+
+    .task-section .task-section-header h4 {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+        .task-section .task-section-header h4::after {
+            content: " ";
+            width: 50%;
+            display: block;
+            height: 2px;
+            border-radius: 10px;
+            background-color: var(--white-color);
+            margin: .5rem 0 0 0;
+        }
+
+.task-section .header-controls {
+    display: flex;
+    gap: 1rem;
+}
+
+.task-section .task-section-header button {
+    border: 0;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: var(--light-dark);
+    color: var(--white-color2);
+    font-size: .7rem;
+    cursor: pointer;
+    border: 1px solid var(--gray-color);
+    transition: all .3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .task-section .task-section-header button:hover {
+        background-color: var(--light-hover-dark);
+    }
+/* #endregion Task Style */
+
+/*#region User Plus Popup*/
+.task-section .header-controls .memebers-plus, .task-section .header-controls .notification-bell {
+    position: relative;
+}
+
+    .task-section .header-controls .memebers-plus .user-plus-popup,
+    .task-section .header-controls .notification-bell .notification-bell-popup {
+        position: absolute;
+        top: 40px;
+        right: 0;
+        z-index: 999;
+        background-color: var(--light-dark);
+        border: 1px solid var(--gray-color);
+        padding: 1rem;
+        border-radius: 10px;
+        min-width: 300px;
+        text-align: left;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        display: none;
+        font-size: 0.9rem;
+    }
+
+    .task-section .header-controls .notification-bell .notification-bell-popup {
+        min-width: 400px;
+    }
+
+        .task-section .header-controls .memebers-plus .user-plus-popup.active, .task-section .header-controls .notification-bell .notification-bell-popup.active {
+            display: block;
+        }
+
+    .task-section .header-controls .memebers-plus .user-plus-popup input {
+        border: 1px solid var(--gray-color);
+        border-radius: 5px;
+        padding: 0.5rem;
+        color: var(--white-color2);
+        background-color: var(--light-dark);
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+
+
+        .task-section .header-controls .memebers-plus .user-plus-popup input::placeholder {
+            color: var(--white-color2);
+        }
+
+        .task-section .header-controls .memebers-plus .user-plus-popup input:focus {
+            border: 1px solid var(--light-hover-dark);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+
+
+
+
+    .task-section .header-controls .memebers-plus .user-plus-popup .add-btn button {
+        width: 100%;
+        border: 0;
+        border-radius: 5px;
+        background-color: var(--green-color);
+        color: var(--white-color);
+        font-size: .9rem;
+        cursor: pointer;
+        border: 1px solid var(--gray-color);
+        transition: all .3s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 1rem;
+    }
+
+        .task-section .header-controls .memebers-plus .user-plus-popup .add-btn button:hover {
+            background-color: rgb(111, 200, 105);
+        }
+
+
+    .task-section .header-controls .memebers-plus .user-plus-popup .user-plus-popup-menue-list .user-plus-popup-menue-list-box {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        padding: 0.5rem 0.3rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all .3s ease-in-out;
+    }
+
+        .task-section .header-controls .memebers-plus .user-plus-popup .user-plus-popup-menue-list .user-plus-popup-menue-list-box:hover {
+            background-color: var(--light-hover-dark);
+        }
+
+        .task-section .header-controls .memebers-plus .user-plus-popup .user-plus-popup-menue-list .user-plus-popup-menue-list-box img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .task-section .header-controls .memebers-plus .user-plus-popup .user-plus-popup-menue-list .user-plus-popup-menue-list-box p {
+            flex: 1;
+            padding: 0;
+            margin: 0;
+        }
+
+
+    /*#endregion User Plus Popup*/
+
+    /* #region Notifcation Bell */
+
+    .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item {
+        display: flex;
+        border-bottom: 1px solid var(--gray-color);
+        cursor: pointer;
+        padding: 1rem 0 0 0;
+    }
+
+        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item:last-child {
+            border-bottom: 0
+        }
+
+        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item span {
+            color: var(--gray-color2);
+            font-size: .7rem;
+            margin-right: 1rem;
+        }
+
+
+        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+
+
+        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item .notifications-box-item-info {
+            font-size: 0.6rem;
+            color: var(--white-color2);
+            flex: 1;
+        }
+
+            .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item .notifications-box-item-info h5 {
+                font-size: 0.9rem;
+                font-weight: bold;
+                color: var(--white-color);
+            }
+
+/* #endregion Notifcation Bell */
+
+/* #region Task Header Module */
+
+.task-add-module .modal-content {
+    border-radius: 10px;
+    background-color: var(--black-color);
+    color: var(--white-color2);
+    padding: 1rem;
+}
+
+    .task-add-module .modal-content h4 {
+        font-size: 1.3rem;
+        padding-bottom: 2rem;
+        font-weight: bold;
+    }
+
+    .task-add-module .modal-content form :where(input, textarea) {
+        border: 1px solid var(--gray-color);
+        border-radius: 5px;
+        padding: 0.5rem;
+        color: var(--white-color2);
+        background-color: var(--light-dark);
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+        .task-add-module .modal-content form :where(input, textarea)::placeholder {
+            color: var(--white-color2);
+        }
+
+        .task-add-module .modal-content form :where(input, textarea):focus {
+            border: 1px solid var(--light-hover-dark);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+    .task-add-module .modal-content form .btn-controlles {
+        display: flex;
+        justify-content: end;
+        gap: 1rem;
+    }
+
+        .task-add-module .modal-content form .btn-controlles button {
+            padding: 0.6rem 2rem;
+            border-radius: 10px;
+            background-color: var(--green-color);
+            color: var(--white-color);
+            font-size: .8rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: 1px solid var(--gray-color);
+            transition: all .3s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.5s ease;
+        }
+
+            .task-add-module .modal-content form .btn-controlles button:hover {
+                background-color: rgb(111, 200, 105);
+            }
+
+/* #endregion Task Header Module */
+
+/* #region Task Content  */
+.task-section .task-section-content {
+    padding: 0 1rem;
+}
+
+    .task-section .task-section-content .task-card {
+        background-color: var(--black-color);
+        color: var(--white-color);
+        padding: 1rem;
+        border-radius: 10px;
+        min-height: 180px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+
+
+
+        .task-section .task-section-content .task-card .task-card-content-container h3 {
+            font-size: .8rem;
+            font-weight: bold;
+        }
+
+        .task-section .task-section-content .task-card .task-card-content-container p {
+            font-size: .7rem;
+        }
+
+        .task-section .task-section-content .task-card .task-card-container h6 {
+            font-size: .8rem;
+        }
+
+
+        .task-section .task-section-content .task-card .task-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .task-section .task-section-content .task-card .task-card-footer .state-btn {
+                color: var(--white-color);
+                padding: 0.3rem 1rem;
+                border-radius: 50px;
+                transition: all .3s ease-in-out;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: .8rem;
+            }
+
+                .task-section .task-section-content .task-card .task-card-footer .state-btn.success {
+                    background-color: var(--green-color);
+                }
+
+                .task-section .task-section-content .task-card .task-card-footer .state-btn.danger {
+                    background-color: var(--orange-color);
+                }
+
+            .task-section .task-section-content .task-card .task-card-footer .control-buttons {
+                display: flex;
+                gap: 1rem;
+                font-size: .8rem;
+            }
+
+                .task-section .task-section-content .task-card .task-card-footer .control-buttons button {
+                    border: 0;
+                    border-radius: 50%;
+                    background-color: transparent;
+                    color: var(--white-color2);
+                    font-size: .8rem;
+                    cursor: pointer;
+                    transition: all .3s ease-in-out;
+                }
+
+                    .task-section .task-section-content .task-card .task-card-footer .control-buttons button:hover {
+                        color: var(--green-color);
+                    }
+
+                    .task-section .task-section-content .task-card .task-card-footer .control-buttons button.edit {
+                        background-color: var(--green-color);
+                    }
+
+    .task-section .task-section-content .task-add-button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        font-size: .9rem;
+        width: 100%;
+        height: 100%;
+    }
+
+        .task-section .task-section-content .task-add-button:hover {
+            background-color: var(--light-hover-dark);
+        }
+
+        .task-section .task-section-content .task-add-button i {
+            padding-right: 1rem;
+        }
+
+
+    .task-section .task-section-content .task-card .task-card-footer .control-buttons .task-card-content-members {
+        display: flex;
+        gap: 1rem;
+        font-size: .8rem;
+        position: relative;
+        cursor: pointer;
+    }
+
+        .task-section .task-section-content .task-card .task-card-footer .control-buttons .task-card-content-members img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .task-section .task-section-content .task-card .task-card-footer .control-buttons .task-card-content-members .member-count {
+            position: absolute;
+            right: 10px;
+            bottom: 0;
+            background-color: var(--black-color);
+            color: var(--white-color);
+            border: 1px solid var(--green-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: .5rem;
+            font-weight: bold;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .task-section .task-section-content .task-card .task-card-footer .control-buttons .task-card-content-members .display-members {
+            position: absolute;
+            top: 50px;
+            right: -70px;
+            background-color: var(--black-color);
+            padding: 0.5rem 0.4rem;
+            color: var(--white-color);
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            width: 200px;
+            display: none;
+        }
+
+.shared-tasks-section .task-section-content .task-card .task-card-footer .control-buttons .task-card-content-members .display-members {
+    right: 0;
+}
+
+
+.task-section .task-section-content .task-card .task-card-footer .control-buttons .task-card-content-members .display-members.active {
+    display: block;
+}
+
+.task-section .task-section-content .task-card .task-card-footer .control-buttons .task-card-content-members .display-members ul {
+    display: flex;
+    flex-flow: column wrap;
+    padding: 0;
+    margin: 0;
+}
+
+    .task-section .task-section-content .task-card .task-card-footer .control-buttons .task-card-content-members .display-members ul li {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem 0;
+    }
+
+        .task-section .task-section-content .task-card .task-card-footer .control-buttons .task-card-content-members .display-members ul li p {
+            padding: 0;
+            margin: 0;
+        }
+
+
+/* #endregion Task Content  */
+
+
+
+/*#endregion Home Page*/
+
+/**======================================
+            Media Ouery Mode 
+=========================================**/
+
+/*#region Media Query */
+/* Media Query */
+@media only screen and (max-width: 750px) {
+    .side-nav-bar {
+        height: 97vh !important;
+        position: fixed !important;
+        z-index: 1000;
+        top: 10px;
+        left: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        width: 200px;
+        transform: translateX(-210px);
+        transition: all .5s ease-in-out;
+    }
+
+        .side-nav-bar .menue-div {
+            display: block;
+            position: absolute;
+            background-color: aliceblue;
+            top: 30px;
+            right: -32px;
+            background-color: var(--light-dark);
+            padding: .5rem .5rem;
+            border: 1px solid transparent;
+            border-radius: 0px 5px 5px 0px;
+            border-top-color: var(--gray-color);
+            border-right-color: var(--gray-color);
+            border-bottom-color: var(--gray-color);
+            cursor: pointer;
+            color: var(--black-color);
+            transition: all .5s ease-in-out;
+        }
+
+            .side-nav-bar .menue-div i {
+                transition: all .5s ease-in-out;
+            }
+
+        .side-nav-bar.active {
+            transform: translateX(0px);
+        }
+
+            .side-nav-bar.active .menue-div i {
+                transform: rotate(180deg);
+            }
+}
+
+@media only screen and (max-width: 600px) {
+    .task-section .header-controls .memebers-plus {
+        position: static;
+    }
+
+        .task-section .header-controls .memebers-plus .user-plus-popup {
+            top: 70px;
+            width: 100%;
+        }
+}
+
+/*#endregion Media Query */
 
 /**======================================
             Dark Light Mode 

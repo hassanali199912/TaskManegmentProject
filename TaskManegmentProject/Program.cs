@@ -45,6 +45,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(op =>
 {
     op.Password.RequireDigit = false;
     op.Password.RequireNonAlphanumeric = false;
+    op.Password.RequireUppercase = false;
+    op.Password.RequireLowercase = false;
+    op.Password.RequiredUniqueChars =0;
 }).AddEntityFrameworkStores<TMContextDB>();
 
 builder.Services.ConfigureApplicationCookie(op =>
@@ -58,6 +61,12 @@ builder.Services.AddScoped<ITaskRepository,TaskRepository>();
 builder.Services.AddScoped<IWorkSpaceRepository, WorkSpaceRepository>();
 builder.Services.AddScoped<IMemberWorkSpaceRepository, MemberWorkSpaceRepository>();
 builder.Services.AddScoped<IMessageChatRepository, MessageChatRepository>();
+
+builder.Services.AddScoped<IMessageMentionsRepository, MessageMentionsRepository>();
+builder.Services.AddScoped<INotificationRepositry, NotificationRepositry>();
+builder.Services.AddScoped<ITaskAssignmentRepository, TaskAssignmentRepository>();
+builder.Services.AddScoped<IWorkSpaceRepository, WorkSpaceRepository>();
+
 
 //builder.Services.AddScoped<IWorkSpaceRepository, WorkSpaceRepository>();
 
