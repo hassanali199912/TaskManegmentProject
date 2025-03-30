@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TaskManegmentProject.DBcontcion;
 using TaskManegmentProject.Models;
+using TaskManegmentProject.Repos;
 
 namespace TaskManegmentProject.Controllers;
 
-[AllowAnonymous]
+[Authorize]
 public class HomeController : Controller
 {
 
@@ -17,27 +18,135 @@ public class HomeController : Controller
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly ILogger<AccountController> _logger;
+    private readonly IWorkSpaceRepository _workSpaceRepository;
+    private readonly IMemberWorkSpaceRepository _memberWorkSpaceRepository;
 
     public HomeController(
         UserManager<ApplicationUser> userManger,
         RoleManager<IdentityRole> roleManager,
         SignInManager<ApplicationUser> signInManager,
-        ILogger<AccountController> logger)
+        ILogger<AccountController> logger,
+        IWorkSpaceRepository workSpaceRepository,
+        IMemberWorkSpaceRepository memberWorkSpaceRepository)
     {
         _userManager = userManger;
         _roleManager = roleManager;
         _signInManager = signInManager;
         _logger = logger;
+        _workSpaceRepository = workSpaceRepository;
+        _memberWorkSpaceRepository = memberWorkSpaceRepository;
     }
 
-
-    public IActionResult Index()
+    [HttpGet]
+    public async Task<IActionResult> Index(int id=1)
     {
+        
 
-        return View();
+            ApplicationUser  authUser =  await _userManager.GetUserAsync(User);
+            List<WorkSpace> WorkData = 
+                await _workSpaceRepository.GetAllWorkSpaceByOwnerId(authUser.Id);
+        ViewData["workSpaceList"] = WorkData;
+
+        if (id > WorkData.Count())
+        {
+            id = WorkData.Count();
+        }
+        if (id < 0)
+        {
+            id =1;
+        }
+
+
+        if (WorkData != null && WorkData.Count() !=0)
+        {
+            ViewData["SelectedWorkSpace"] = WorkData[id-1];
+           return View("Index", WorkData[id-1]);
+        }
+        
+        return View("Index");
+
+
+
+
     }
 
 
+    [HttpPost]
+    public async Task<IActionResult> AddWorkSpace(string workSpaceName)
+    {
+        ApplicationUser getUser = await _userManager.GetUserAsync(User);
+        if(getUser == null)
+        {
+            return Unauthorized();
+        }
+        if (string.IsNullOrEmpty(workSpaceName))
+        {
+            return BadRequest(new { success = false, message = "WorkSpace name cannot be empty." });
+        }
+
+        WorkSpace newWork = new WorkSpace()
+        {
+            Name = workSpaceName,
+            OwnerID = getUser.Id
+
+        };
+            await _workSpaceRepository.CreateAsync(newWork);
+            await _workSpaceRepository.SaveAsync();
+
+        return Json(new {
+            success = true,
+            workSpace = new
+            {
+                id = newWork.Id,
+                name = newWork.Name
+            }
+        });
+    }
+
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AddMemberToWorkSpace(string workSpaceId, string email)
+    {
+        if(workSpaceId == null || email == null)
+        {
+            return BadRequest(new
+            {
+                message = "Invalid Data"
+            });
+        }
+
+        ApplicationUser getUserByEmail = await _userManager.FindByEmailAsync(email);
+
+        if(getUserByEmail == null)
+        {
+            return NotFound(new
+            {
+                message = "Invalid User Data"
+            });
+        }
+
+
+        MemberWorkSpace addNewMember = new MemberWorkSpace() {
+            OwnerID = getUserByEmail.Id,
+            WorkSpaceID = workSpaceId,
+        };
+
+        await _memberWorkSpaceRepository.CreateAsync(addNewMember);
+        await _memberWorkSpaceRepository.SaveAsync();
+
+        return Ok(new
+        {
+            message = "Data Reached Successfuly",
+            data = new {
+                email = getUserByEmail.Email,
+                imageUrl = getUserByEmail.ImageUrl,
+                name=getUserByEmail.Name,
+                id =getUserByEmail.Id
+            }
+
+        });
+    }
 
 
     // فيها كلام مهم كتير فوي
@@ -69,7 +178,7 @@ public class HomeController : Controller
     //    //            _logger.LogInformation($"Role: {role}");
     //    //        }
     //    //    }
-          
+
     //    //        IdentityResult createRole = await _roleManager.CreateAsync(new IdentityRole { Name = "Viewer" });
 
     //    //        IdentityResult roleRes = await _userManager.AddToRoleAsync(getUser, "Admin");
@@ -84,7 +193,7 @@ public class HomeController : Controller
     //    //                Console.WriteLine(er.Description);
     //    //            }
     //    //    }
-         
+
 
 
     //    //}

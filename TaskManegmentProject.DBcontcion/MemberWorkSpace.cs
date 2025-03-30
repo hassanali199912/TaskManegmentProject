@@ -10,8 +10,9 @@ namespace TaskManegmentProject.DBcontcion
 
         public string WorkSpaceID { get; set; }
         public string OwnerID { get; set; }
-        public string RoleID { get; set; }
+        public MemberRole MemberRole { get; set; } = MemberRole.Editor;
         public DateTime JoinAt { get; set; } = DateTime.UtcNow;
+        public string? RoleID { get; set; }
 
 
         [ForeignKey("WorkSpaceID")]

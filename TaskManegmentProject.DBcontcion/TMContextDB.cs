@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TaskManegmentProject.Enums;
 
 namespace TaskManegmentProject.DBcontcion
 {
@@ -27,7 +28,11 @@ namespace TaskManegmentProject.DBcontcion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<MemberWorkSpace>().Property(p => p.MemberRole).HasConversion<string>()
+                .HasDefaultValue(MemberRole.Editor);
             
         }
     }

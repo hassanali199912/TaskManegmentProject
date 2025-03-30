@@ -9,14 +9,12 @@ namespace TaskManegmentProject.DBcontcion
 
         public string OwnerID { get; set; }
        
+        
+
         [ForeignKey("OwnerID")]
         public ApplicationUser Owner { get; set; }
-
-
         public List<MemberWorkSpace>? Members{ get; set; }
-
         public List<MyTask>? Tasks { get; set; }
-
         public List<MessageChat>? Messages { get; set; }
 
 

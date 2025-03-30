@@ -1,4 +1,5 @@
-﻿using TaskManegmentProject.DBcontcion;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskManegmentProject.DBcontcion;
 
 namespace TaskManegmentProject.Repos
 {
@@ -10,6 +11,27 @@ namespace TaskManegmentProject.Repos
         {
             _context = context;
 
+        }
+
+        public async Task<List<WorkSpace>> GetAllWorkSpaceByOwnerId(string id)
+        {
+            List<WorkSpace> allWorkSpaces = await _context.WorkSpaces.
+                                           Where(e=>e.OwnerID.Equals(id))
+                                           .Include(i=>i.Tasks).Include(i => i.Members).ThenInclude(i=>i.User)
+                                           .ToListAsync();
+                
+            return allWorkSpaces;
+        }
+
+        public async Task<WorkSpace> GetByOwnerId(string id)
+        {
+            WorkSpace? data =  await _context.WorkSpaces
+                .Include(w => w.Tasks)     
+                .Include(w => w.Members)   
+                .FirstOrDefaultAsync(w => w.Id.Equals(id));
+
+
+            return data;
         }
     }
 }

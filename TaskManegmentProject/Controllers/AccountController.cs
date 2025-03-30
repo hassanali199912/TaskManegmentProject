@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Language.Intermediate;
 using TaskManegmentProject.DBcontcion;
 using TaskManegmentProject.DBcontcion.ViewModels;
+using TaskManegmentProject.Repos;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TaskManegmentProject.Controllers
@@ -17,29 +19,42 @@ namespace TaskManegmentProject.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<AccountController> _logger;
+        private readonly IWorkSpaceRepository _workSpaceContextl;
 
         public AccountController(
             UserManager<ApplicationUser> userManger,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger ,
+            IWorkSpaceRepository workSpaceContextl
+            )
         {
             _userManager = userManger;
             _signInManager = signInManager;
             _logger = logger;
+            _workSpaceContextl = workSpaceContextl;
         }
 
 
 
 
         [HttpGet]
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View("Login");
         }
 
         [HttpGet]
         public IActionResult Regiester()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View("Regiester");
         }
 
@@ -67,7 +82,7 @@ namespace TaskManegmentProject.Controllers
                 }
 
                 /*
-                 * دي بستجل دخول علي طول , مش مش هاعرف اضيف climes 
+                 * دي بستجل دخول علي طول , لو مش عاوز اضيف climes 
              var resule = 
                 await _signInManager.
                 PasswordSignInAsync(user, loginUser.Password,true,lockoutOnFailure:false);
@@ -94,8 +109,10 @@ namespace TaskManegmentProject.Controllers
                 await _signInManager.SignInWithClaimsAsync(user, true, claims);
                 _logger.LogInformation("User {Email} Login Successfuly ", loginUser.Email);
 
+               
 
                 return RedirectToAction("Index", "Home");
+
             }catch(Exception e) {
                 _logger.LogError("An Error Happen During login {Email}", loginUser.Email);
 
@@ -157,8 +174,19 @@ namespace TaskManegmentProject.Controllers
                 };
                 await _signInManager.SignInWithClaimsAsync(newUser,true,claims);
                 _logger.LogInformation("User {Email} Register Successfuly ", regiesterUser.Email);
+                WorkSpace work = new WorkSpace()
+                {
+                    Name = "Frist Work Space",
+                    OwnerID = newUser.Id,
+                    
+                };
+              await  _workSpaceContextl.CreateAsync(work);
+              await  _workSpaceContextl.SaveAsync();
 
-                return RedirectToAction("Index", "Home");
+                WorkSpace WorkData = await _workSpaceContextl.GetByOwnerId(newUser.Id);
+
+
+                return RedirectToAction("Index", "Home", WorkData);
             }
             catch (Exception e)
             {
