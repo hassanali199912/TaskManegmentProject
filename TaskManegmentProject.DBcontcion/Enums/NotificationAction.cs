@@ -8,5 +8,8 @@
         TaskAssigned,
         TaskCompleted,
 
+        MemberAdded,
+        MemberRemoved
+
     }
 }

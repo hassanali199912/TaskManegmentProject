@@ -1,4 +1,5 @@
-﻿using TaskManegmentProject.DBcontcion;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskManegmentProject.DBcontcion;
 
 namespace TaskManegmentProject.Repos
 {
@@ -11,6 +12,21 @@ namespace TaskManegmentProject.Repos
         {
             _context = context;
 
+        }
+
+
+        public async Task<bool> IsExistMemberInWorkSpace(string workspace,string email)
+        {
+
+            MemberWorkSpace isExist = await _context.MemberWorkSpace.Include(e=>e.User).FirstOrDefaultAsync(e=>e.WorkSpaceID.Equals(workspace) && e.User.Email.Equals(email));
+
+
+            if (isExist !=null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
     }

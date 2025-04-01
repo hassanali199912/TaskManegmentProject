@@ -8,7 +8,9 @@ namespace TaskManegmentProject.DBcontcion
     {
         
         public string UserId { get; set; }
-        public string TaskId { get; set; }
+        public string? TaskId { get; set; }
+        public string WorkspaceId { get; set; }
+
         public NotificationAction Action{ get; set; }
         public bool IsReaded { get; set; } 
 
@@ -17,6 +19,11 @@ namespace TaskManegmentProject.DBcontcion
 
         [ForeignKey("TaskId")]
         public MyTask Task { get; set; }
+
+        [ForeignKey("WorkspaceId")]
+        public WorkSpace WorkSpace{ get; set; }
+
+
 
 
     }

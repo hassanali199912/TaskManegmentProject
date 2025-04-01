@@ -70,7 +70,6 @@ public class HomeController : Controller
 
     }
 
-
     [HttpPost]
     public async Task<IActionResult> AddWorkSpace(string workSpaceName)
     {
@@ -126,6 +125,15 @@ public class HomeController : Controller
             });
         }
 
+        bool isExist = await _memberWorkSpaceRepository.IsExistMemberInWorkSpace(workSpaceId,email);
+
+        if (isExist)
+        {
+            return BadRequest(new
+            {
+                message = "User Already Exist"
+            });
+        }
 
         MemberWorkSpace addNewMember = new MemberWorkSpace() {
             OwnerID = getUserByEmail.Id,
@@ -145,6 +153,26 @@ public class HomeController : Controller
                 id =getUserByEmail.Id
             }
 
+        });
+    }
+
+    [HttpDelete("/home/DeleteMemberFromWorkSpace/{id}")] 
+    public async Task<IActionResult> DeleteMemberFromWorkSpace(string id)
+    {
+        MemberWorkSpace member = await _memberWorkSpaceRepository.GetByIdAsync(id);
+        if (member != null)
+        {
+            await _memberWorkSpaceRepository.DeleteAsync(member.Id);
+            await _memberWorkSpaceRepository.SaveAsync();
+
+            return Json(new
+            {
+                message = "Deleted Successfully"
+            });
+        }
+        return BadRequest(new
+        {
+            message = "Error: Member not found"
         });
     }
 

@@ -31,11 +31,11 @@
             {
                 foreach (MemberWorkSpace memberWorkSpace in Model)
                 {
-                    <div class="user-plus-popup-menue-list-box">
+                    <div class="user-plus-popup-menue-list-box" data-member-id="@memberWorkSpace.Id">
                         <img src = @(memberWorkSpace.User.ImageUrl != null ? ""+memberWorkSpace.User.ImageUrl+"" : "/img/avatar-images/avatar-1.jpeg")
                              alt="@memberWorkSpace.User.Name">
                         <p>@memberWorkSpace.User.Email</p>
-                        <button data-user-id="@memberWorkSpace.User.Id">
+                        <button  onclick="DeleteMemberBTN('@memberWorkSpace.Id')">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -43,7 +43,7 @@
             }
             else
             {
-                <div class="user-plus-popup-menue-list-box">
+                <div class="user-plus-popup-menue-list-box" id="no-member-box">
                     <p>No Member Added Yet</p>
                 </div>
             }
@@ -87,15 +87,13 @@
                 "RequestVerificationToken": token
             },
             success: function (response) {
-
-                    console.log(response)
                 if (response.data !=null) {
                     let newMember = response.data;
                     let newMemberHtml = `
-                        <div class="user-plus-popup-menue-list-box">
+                        <div class="user-plus-popup-menue-list-box" data-member-id='${newMember.id}'>
                                     <img src="${newMember.imageUrl || '/img/avatar-images/avatar-1.jpeg'}" alt="${newMember.name}" />
                             <p>${newMember.email}</p>
-                                    <button data-user-id="${newMember.id}">
+                                    <button onclick="DeleteMemberBTN('${newMember.id}')">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                         </div>`;
@@ -105,17 +103,42 @@
                     $errorSpan.text("Member added successfully!").removeClass("text-danger").addClass("text-success");
                 } else {
                     console.log("catch");
-                    $errorSpan.text(response.message || "Error adding member.").removeClass("text-success").addClass("text-danger");
+                    $errorSpan.text(response.message ||response.responseJSON.message || "Error adding member.").removeClass("text-success").addClass("text-danger");
                 }
 
             },
-            error: function () {
-                $errorSpan.text(response.message || "Error adding member. Please try again.").removeClass("text-success").addClass("text-danger");
+            error: function (error) {
+                $errorSpan.text(error.responseJSON.message || "Error adding member. Please try again.").removeClass("text-success").addClass("text-danger");
             }
         });
 
 
     }
-        
+
+        function DeleteMemberBTN(id) {
+        let $errorSpan = $("#member-email-error");
+
+        $.ajax({
+            url: `/home/DeleteMemberFromWorkSpace/${id}`, 
+            type: "DELETE",
+            success: function (response) {
+                console.log(response);
+                if (response.message) {
+                    $("#no-member-box").remove();
+                    $(`[data-member-id="${id}"]`).remove();
+                    $errorSpan.text(response.message|| "Removed Successfuly").removeClass("text-danger").addClass("text-success");
+                } else {
+                    console.log("Error:", response.message);
+                    $errorSpan.text(response.message|| "Error Happen").removeClass("text-success").addClass("text-danger");
+                }
+            },
+            error: function (error) {
+                console.error("AJAX Error:", error);
+                    $errorSpan.text(error.responseJSON.message|| "Error Happen").removeClass("text-success").addClass("text-danger");
+
+            }
+        });
+    }
+
 </script>
 

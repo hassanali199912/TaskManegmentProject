@@ -31,9 +31,15 @@ namespace TaskManegmentProject.DBcontcion
 
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<MemberWorkSpace>().Property(p => p.MemberRole).HasConversion<string>()
+            modelBuilder.Entity<MemberWorkSpace>()
+                .Property(p => p.MemberRole)
+                .HasConversion<string>()
                 .HasDefaultValue(MemberRole.Editor);
             
+            modelBuilder.Entity<Notification>()
+                .Property(p =>p.Action)
+                .HasConversion<string>();
+
         }
     }
 }
