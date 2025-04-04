@@ -758,6 +758,7 @@ table {
 
     .task-section .header-controls .notification-bell .notification-bell-popup {
         min-width: 400px;
+        
     }
 
         .task-section .header-controls .memebers-plus .user-plus-popup.active, .task-section .header-controls .notification-bell .notification-bell-popup.active {
@@ -843,12 +844,16 @@ table {
     /*#endregion User Plus Popup*/
 
     /* #region Notifcation Bell */
-
-    .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item {
+    .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item {
         display: flex;
         border-bottom: 1px solid var(--gray-color);
         cursor: pointer;
-        padding: 1rem 0 0 0;
+        margin:0.5rem 0;
+        padding: 1rem ;
     }
 
         .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item:last-child {
@@ -877,12 +882,19 @@ table {
             flex: 1;
         }
 
+            .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item:hover {
+                background-color:var(--dark-color);
+            }
             .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item .notifications-box-item-info h5 {
-                font-size: 0.9rem;
+                font-size: 1rem;
                 font-weight: bold;
                 color: var(--white-color);
             }
-
+            .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item .notifications-box-item-info p {
+                font-size: 0.8rem;
+                font-weight:bold;
+                padding:0.2rem 0 0 0 ;
+            }
 /* #endregion Notifcation Bell */
 
 /* #region Task Header Module */

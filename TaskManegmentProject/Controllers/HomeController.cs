@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using TaskManegmentProject.DBcontcion;
 using TaskManegmentProject.Models;
+using TaskManegmentProject.MyHubs;
 using TaskManegmentProject.Repos;
 
 namespace TaskManegmentProject.Controllers;
@@ -20,6 +22,8 @@ public class HomeController : Controller
     private readonly ILogger<AccountController> _logger;
     private readonly IWorkSpaceRepository _workSpaceRepository;
     private readonly IMemberWorkSpaceRepository _memberWorkSpaceRepository;
+    private readonly INotificationRepositry _notificationRepository;
+    private readonly IHubContext<NotifcationHub> _hubContext;
 
     public HomeController(
         UserManager<ApplicationUser> userManger,
@@ -27,7 +31,9 @@ public class HomeController : Controller
         SignInManager<ApplicationUser> signInManager,
         ILogger<AccountController> logger,
         IWorkSpaceRepository workSpaceRepository,
-        IMemberWorkSpaceRepository memberWorkSpaceRepository)
+        IMemberWorkSpaceRepository memberWorkSpaceRepository ,
+        INotificationRepositry notificationRepository,
+        IHubContext<NotifcationHub> hubContext)
     {
         _userManager = userManger;
         _roleManager = roleManager;
@@ -35,6 +41,8 @@ public class HomeController : Controller
         _logger = logger;
         _workSpaceRepository = workSpaceRepository;
         _memberWorkSpaceRepository = memberWorkSpaceRepository;
+        _notificationRepository = notificationRepository;
+        _hubContext = hubContext;
     }
 
     [HttpGet]
@@ -59,7 +67,10 @@ public class HomeController : Controller
 
         if (WorkData != null && WorkData.Count() !=0)
         {
+            List<Notification> notificationsWorkSpace = await _notificationRepository.GetAllByWorkSpaceId(WorkData[id-1].Id);
+            ViewData["NotifcationsList"] = notificationsWorkSpace;
             ViewData["SelectedWorkSpace"] = WorkData[id-1];
+
            return View("Index", WorkData[id-1]);
         }
         
@@ -107,6 +118,7 @@ public class HomeController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddMemberToWorkSpace(string workSpaceId, string email)
     {
+
         if(workSpaceId == null || email == null)
         {
             return BadRequest(new
@@ -135,13 +147,31 @@ public class HomeController : Controller
             });
         }
 
+        ApplicationUser getLoginId = await _userManager.GetUserAsync(User);
+
         MemberWorkSpace addNewMember = new MemberWorkSpace() {
+            
             OwnerID = getUserByEmail.Id,
             WorkSpaceID = workSpaceId,
+            
+        };
+
+        Notification newNotification = new Notification()
+        {
+            UserId = getLoginId.Id,
+            WorkspaceId = workSpaceId,
+            Action = Enums.NotificationAction.MemberAdded,
+            IsReaded = false
         };
 
         await _memberWorkSpaceRepository.CreateAsync(addNewMember);
+        await _notificationRepository.CreateAsync(newNotification);
+
         await _memberWorkSpaceRepository.SaveAsync();
+
+        Notification newNotificationData = await _notificationRepository.GetNotificationByIdAsync(newNotification.Id);
+
+        await _hubContext.Clients.All.SendAsync("ReceiveNotification", newNotificationData);
 
         return Ok(new
         {
@@ -162,9 +192,25 @@ public class HomeController : Controller
         MemberWorkSpace member = await _memberWorkSpaceRepository.GetByIdAsync(id);
         if (member != null)
         {
+            ApplicationUser getLoginId = await _userManager.GetUserAsync(User);
+
+
+            Notification newNotification = new Notification()
+            {
+                UserId = getLoginId.Id,
+                WorkspaceId = member.WorkSpaceID,
+                Action = Enums.NotificationAction.MemberRemoved,
+                IsReaded = false
+            };
             await _memberWorkSpaceRepository.DeleteAsync(member.Id);
+            await _notificationRepository.CreateAsync(newNotification);
+
             await _memberWorkSpaceRepository.SaveAsync();
 
+
+            Notification newNotificationData = await _notificationRepository.GetNotificationByIdAsync(newNotification.Id);
+
+            await _hubContext.Clients.All.SendAsync("ReceiveNotification", newNotificationData);
             return Json(new
             {
                 message = "Deleted Successfully"

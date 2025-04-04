@@ -15,12 +15,11 @@ namespace TaskManegmentProject.Repos
 
         public async Task<List<WorkSpace>> GetAllWorkSpaceByOwnerId(string id)
         {
-            List<WorkSpace> allWorkSpaces = await _context.WorkSpaces.
-                                           Where(e=>e.OwnerID.Equals(id))
-                                           .Include(i=>i.Tasks).Include(i => i.Members).ThenInclude(i=>i.User)
-                                           .ToListAsync();
-                
-            return allWorkSpaces;
+            
+            return await _context.WorkSpaces.
+                                           Where(e => e.OwnerID.Equals(id))
+                                           .Include(i => i.Tasks).Include(i => i.Members).ThenInclude(i => i.User)
+                                           .ToListAsync(); ;
         }
 
         public async Task<WorkSpace> GetByOwnerId(string id)

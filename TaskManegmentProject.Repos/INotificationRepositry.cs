@@ -9,5 +9,7 @@ namespace TaskManegmentProject.Repos
 {
     public interface INotificationRepositry:IRepository<Notification>
     {
+        Task<Notification> GetNotificationByIdAsync(string Id);
+        Task<List<Notification>> GetAllByWorkSpaceId(string Id);
     }
 }

@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using TaskManegmentProject.DBcontcion;
 using TaskManegmentProject.Repos;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Builder;
+using TaskManegmentProject.MyHubs;
 
 
 
@@ -106,4 +108,5 @@ app.MapControllerRoute(
 app.MapRazorPages()
    .WithStaticAssets();
 
+app.MapHub<NotifcationHub>("/notifcationhub");
 app.Run();

@@ -43,7 +43,7 @@
             }
             else
             {
-                <div class="user-plus-popup-menue-list-box" id="no-member-box">
+                <div class="user-plus-popup-menue-list-box no-member-add-div" id="no-member-box">
                     <p>No Member Added Yet</p>
                 </div>
             }
@@ -98,7 +98,7 @@
                             </button>
                         </div>`;
                     $(".user-plus-popup-menue-list").append(newMemberHtml);
-
+                    $(".no-member-add-div").remove();
                     $("#memberFormWorkSpaceEmail").val("");
                     $errorSpan.text("Member added successfully!").removeClass("text-danger").addClass("text-success");
                 } else {
