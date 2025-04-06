@@ -5,6 +5,10 @@
     {
       "library": "microsoft-signalr@8.0.7",
       "destination": "wwwroot/microsoft-signalr/"
+    },
+    {
+      "library": "mdb-ui-kit@8.2.0",
+      "destination": "wwwroot/mdb-ui-kit/"
     }
   ]
 }

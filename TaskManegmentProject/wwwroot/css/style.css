@@ -728,10 +728,29 @@ table {
     justify-content: center;
     align-items: center;
 }
+.task-section .task-section-header a {
+    border: 0;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: var(--light-dark);
+    color: var(--white-color2);
+    font-size: .7rem;
+    cursor: pointer;
+    border: 1px solid var(--gray-color);
+    transition: all .3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration:none;
+}
 
     .task-section .task-section-header button:hover {
         background-color: var(--light-hover-dark);
     }
+.task-section .task-section-header a:hover {
+    background-color: var(--light-hover-dark);
+}
 /* #endregion Task Style */
 
 /*#region User Plus Popup*/
@@ -1148,9 +1167,48 @@ table {
 /*#endregion Home Page*/
 
 /**======================================
-            Media Ouery Mode 
+            Add Page
 =========================================**/
 
+/*#region task-page*/
+.task-page{
+    padding:2rem 0 0 0;
+}
+    .task-page h2{
+        font-size:1.5rem;
+        letter-spacing:3px;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        text-transform:uppercase;
+    }
+    .task-page h2,
+    .task-page form label {
+        color: var(--white-color);
+    }
+
+    .task-page form {
+        padding-top:2rem ;
+    }
+
+        .task-page form input,
+        .task-page form textarea,
+        .task-page form select,
+        .task-page form .dropdown button{
+            background-color: var(--black-color) !important;
+            color: var(--white-color) !important;
+            border: 1px solid var(--gray-color2) !important;
+            border-radius: 5px !important;
+            padding: 0.5rem !important;
+        }
+            .task-page form select:focus,
+            .task-page form .dropdown button:focus {
+                box-shadow: none;
+                border-color: var(--white-color);
+            }
+
+/*#endregion task-page*/
+/**======================================
+            Media Ouery Mode 
+=========================================**/
 /*#region Media Query */
 /* Media Query */
 @media only screen and (max-width: 750px) {

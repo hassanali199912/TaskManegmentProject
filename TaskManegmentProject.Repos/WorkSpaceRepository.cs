@@ -32,5 +32,11 @@ namespace TaskManegmentProject.Repos
 
             return data;
         }
+
+        public async Task<WorkSpace> GetByOwnerIdAndWorkSpcaeId(string ownerId, string worksapceId)
+        {
+            return await _context.WorkSpaces.Include(i => i.Members).ThenInclude(i => i.User).FirstOrDefaultAsync(e=>e.OwnerID.Equals(ownerId) && e.Id.Equals(worksapceId));
+
+        }
     }
 }

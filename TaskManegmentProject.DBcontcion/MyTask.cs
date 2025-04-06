@@ -9,7 +9,6 @@ namespace TaskManegmentProject.DBcontcion
 
         public string WorkSpaceId { get; set; }
 
-
         public string Title { get; set; }
         public string Description { get; set; }
         public Enums.TaskStatus Status { get; set; }

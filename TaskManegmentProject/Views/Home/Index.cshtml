@@ -12,11 +12,12 @@
 
 }
 
-	<partial name="_SideHomeLayout" />
+
+@* <partial name="_SideHomeLayout" /> *@
 
 
-<section class="task-section card">
-
+@* <section class="task-section card">
+ *@
 	<input type="hidden" value="@Model.Id" id="work-space-id" />
 	@* <partial name="_TaskSectionHeader" model="@Model"  /> *@
 	<div class="task-section-header card-header">
@@ -32,7 +33,9 @@
 
 			<partial name="_NotificationSection" model="@myNotificationsList" />
 
-			<button><i class="fa fa-plus"></i></button>
+		<a asp-controller="Task" asp-action="Add" asp-route-workSpaceId="@ViewBag.workSpaceId">
+			<i class="fa fa-plus"></i>
+				</a>
 
 			<div class="mode-toggle-home">
 				<button class="mode-btn" id="btn-mode" onclick="swichMode()">
@@ -44,9 +47,6 @@
 
 
 	</div>
-
-
-
 
 	<div class="task-section-content card-body">
 		<div class="row">
@@ -79,13 +79,11 @@
 		</div>
 	</div>
 
-</section>
+@* </section> *@
 
+@* <partial name="_FlipModeJs" />
+<partial name="_ValidationScriptsPartial" /> *@
 
-
-
-<partial name="_FlipModeJs" />
-<partial name="_ValidationScriptsPartial" />
 
 <script>
 

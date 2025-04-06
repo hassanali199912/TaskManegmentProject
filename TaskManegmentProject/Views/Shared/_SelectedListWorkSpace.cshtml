@@ -8,17 +8,17 @@
 		@if (Model != null && Model.Any())
 		{
 
-			foreach (var item in Model.Select((value, i) => (value, i)))
+			foreach (var item in Model)
 			{
-				if (item.value.Id == ViewBag.SelectedWorkSpace.Id)
+				if (item.Id == ViewBag.SelectedWorkSpace.Id)
 				{
-					<option selected value="@(item.i+1)">@item.value.Name</option>
+					<option selected value="@(item.Id)">@item.Name</option>
 
 				}
 				else
 				{
 
-					<option value="@(item.i+1)">@item.value.Name</option>
+					<option value="@(item.Id)">@item.Name</option>
 
 				}
 

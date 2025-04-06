@@ -15,7 +15,6 @@ using TaskManegmentProject.MyHubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 
@@ -67,7 +66,6 @@ builder.Services.AddScoped<IMessageChatRepository, MessageChatRepository>();
 builder.Services.AddScoped<IMessageMentionsRepository, MessageMentionsRepository>();
 builder.Services.AddScoped<INotificationRepositry, NotificationRepositry>();
 builder.Services.AddScoped<ITaskAssignmentRepository, TaskAssignmentRepository>();
-builder.Services.AddScoped<IWorkSpaceRepository, WorkSpaceRepository>();
 
 
 //builder.Services.AddScoped<IWorkSpaceRepository, WorkSpaceRepository>();

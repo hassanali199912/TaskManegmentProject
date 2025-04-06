@@ -6,6 +6,7 @@ namespace TaskManegmentProject.Repos
     {
         Task<WorkSpace> GetByOwnerId(string id);
         Task<List<WorkSpace>> GetAllWorkSpaceByOwnerId(string id);
+        Task<WorkSpace> GetByOwnerIdAndWorkSpcaeId(string ownerId, string worksapceId);
 
     }
 }

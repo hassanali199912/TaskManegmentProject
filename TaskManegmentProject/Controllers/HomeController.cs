@@ -55,23 +55,27 @@ public class HomeController : Controller
                 await _workSpaceRepository.GetAllWorkSpaceByOwnerId(authUser.Id);
         ViewData["workSpaceList"] = WorkData;
 
-        if (id > WorkData.Count())
-        {
-            id = WorkData.Count();
+        if (id == 1) {
+            List<Notification> notificationsWorkSpace = await _notificationRepository
+                .GetAllByWorkSpaceId(WorkData[id - 1].Id);
+            ViewData["NotifcationsList"] = notificationsWorkSpace;
+            ViewData["SelectedWorkSpace"] = WorkData[id - 1];
+            return View("Index", WorkData[id - 1]);
         }
-        if (id < 0)
-        {
-            id =1;
-        }
-
 
         if (WorkData != null && WorkData.Count() !=0)
         {
-            List<Notification> notificationsWorkSpace = await _notificationRepository.GetAllByWorkSpaceId(WorkData[id-1].Id);
-            ViewData["NotifcationsList"] = notificationsWorkSpace;
-            ViewData["SelectedWorkSpace"] = WorkData[id-1];
+            WorkSpace selectedWorSpace = WorkData.Find(e => e.Id.Equals(id));
 
-           return View("Index", WorkData[id-1]);
+            if (selectedWorSpace != null) { 
+
+            List<Notification> notificationsWorkSpace = await 
+                    _notificationRepository.GetAllByWorkSpaceId(selectedWorSpace.Id);
+            ViewData["NotifcationsList"] = notificationsWorkSpace;
+            ViewData["SelectedWorkSpace"] = selectedWorSpace;
+            return View("Index", selectedWorSpace);
+            }
+
         }
         
         return View("Index");
