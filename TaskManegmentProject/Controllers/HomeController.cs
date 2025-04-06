@@ -60,6 +60,7 @@ public class HomeController : Controller
                 .GetAllByWorkSpaceId(WorkData[id - 1].Id);
             ViewData["NotifcationsList"] = notificationsWorkSpace;
             ViewData["SelectedWorkSpace"] = WorkData[id - 1];
+            WorkSpace test = WorkData[id - 1];
             return View("Index", WorkData[id - 1]);
         }
 

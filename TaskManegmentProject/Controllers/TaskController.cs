@@ -100,5 +100,112 @@ namespace TaskManegmentProject.Controllers
                 id = viewModel.WorkSpaceId
             });
         }
+    
+
+        public async Task<IActionResult> Edit(string id)
+        {
+
+            MyTask task = await _taskRepository.GetByIdAsync(id);
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            ApplicationUser userData = await _userManager.GetUserAsync(User);
+            if (userData == null)
+            {
+                return Unauthorized();
+            }
+
+          
+            WorkSpace workSpace = await _workSpaceRepository.GetByOwnerIdAndWorkSpcaeId(userData.Id, task.WorkSpaceId);
+            if (workSpace == null)
+            {
+                return NotFound();
+            }
+
+            TaskViewModel model = new TaskViewModel
+            {
+                Id = task.Id,
+                WorkSpaceId = task.WorkSpaceId,
+                Title = task.Title,
+                Description = task.Description,
+                Status = task.Status,
+                Priority = task.Priority,
+                AssignTo = task.AssignTo
+            };
+
+            ViewData["membersList"] = workSpace.Members;
+
+            return View("Edit", model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(TaskViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                // جلب بيانات المستخدم الحالي
+                ApplicationUser userData = await _userManager.GetUserAsync(User);
+                if (userData == null)
+                {
+                    return Unauthorized();
+                }
+
+                // جلب الـ WorkSpace
+                WorkSpace workSpace = await _workSpaceRepository.GetByOwnerIdAndWorkSpcaeId(userData.Id, viewModel.WorkSpaceId);
+                if (workSpace == null)
+                {
+                    return NotFound();
+                }
+
+                // إعادة تمرير قايمة الأعضاء للـ View
+                ViewData["membersList"] = workSpace.Members;
+
+                return View(viewModel);
+            }
+
+            // جلب الـ Task الموجودة
+            MyTask task = await _taskRepository.GetByIdAsync(viewModel.Id);
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            ApplicationUser getUser = await _userManager.GetUserAsync(User);
+            if (getUser == null)
+            {
+                return Unauthorized();
+            }
+
+            task.Title = viewModel.Title;
+            task.Description = viewModel.Description;
+            task.Status = viewModel.Status;
+            task.Priority = viewModel.Priority;
+            task.AssignTo = viewModel.AssignTo;
+            
+            await _taskRepository.UpdateAsync(task);
+            Notification newNotification = new Notification
+            {
+                UserId = getUser.Id,
+                WorkspaceId = viewModel.WorkSpaceId,
+                TaskId = task.Id, 
+                Action = NotificationAction.TaskUpdated,
+                IsReaded = false
+            };
+
+            await _notificationRepository.CreateAsync(newNotification);
+            Notification newNotificationData = await _notificationRepository.GetNotificationByIdAsync(newNotification.Id);
+
+            await _hubContext.Clients.All.SendAsync("ReceiveNotification", newNotificationData);
+
+            await _taskRepository.SaveAsync();
+
+            return RedirectToAction("Index", "Home", new
+            {
+                id = viewModel.WorkSpaceId
+            });
+        }
+
     }
 }

@@ -1046,10 +1046,12 @@ table {
             .task-section .task-section-content .task-card .task-card-footer .control-buttons {
                 display: flex;
                 gap: 1rem;
+                align-items:center;
                 font-size: .8rem;
             }
 
-                .task-section .task-section-content .task-card .task-card-footer .control-buttons button {
+                .task-section .task-section-content .task-card .task-card-footer .control-buttons button,
+                .task-section .task-section-content .task-card .task-card-footer .control-buttons a {
                     border: 0;
                     border-radius: 50%;
                     background-color: transparent;
@@ -1059,7 +1061,8 @@ table {
                     transition: all .3s ease-in-out;
                 }
 
-                    .task-section .task-section-content .task-card .task-card-footer .control-buttons button:hover {
+                    .task-section .task-section-content .task-card .task-card-footer .control-buttons button:hover, 
+                    .task-section .task-section-content .task-card .task-card-footer .control-buttons a:hover {
                         color: var(--green-color);
                     }
 
@@ -1196,7 +1199,7 @@ table {
         .task-page form textarea,
         .task-page form select,
         .task-page form .dropdown button{
-            background-color: var(--black-color) !important;
+            background-color: var(--dark-color) !important;
             color: var(--white-color) !important;
             border: 1px solid var(--gray-color2) !important;
             border-radius: 5px !important;
@@ -1302,12 +1305,12 @@ table {
     font-size: 1rem;
 }
 
-#btn-mode img {
+#theme-toggle-btn img {
     width: 50px;
     transition: all 0.3s ease;
 }
 
-.mode-toggle-home #btn-mode img {
+.mode-toggle-home #theme-toggle-btn img {
     width: 30px;
 }
 /*#endregion Dark / Light Mode*/
