@@ -46,7 +46,8 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index(int id=1)
+
+    public async Task<IActionResult> Index(string id)
     {
         
 
@@ -55,13 +56,13 @@ public class HomeController : Controller
                 await _workSpaceRepository.GetAllWorkSpaceByOwnerId(authUser.Id);
         ViewData["workSpaceList"] = WorkData;
 
-        if (id == 1) {
+        if (id == null) {
+            id = WorkData[0].Id;
             List<Notification> notificationsWorkSpace = await _notificationRepository
-                .GetAllByWorkSpaceId(WorkData[id - 1].Id);
+                .GetAllByWorkSpaceId(id);
             ViewData["NotifcationsList"] = notificationsWorkSpace;
-            ViewData["SelectedWorkSpace"] = WorkData[id - 1];
-            WorkSpace test = WorkData[id - 1];
-            return View("Index", WorkData[id - 1]);
+            ViewData["SelectedWorkSpace"] = WorkData[0];
+            return View("Index", WorkData[0]);
         }
 
         if (WorkData != null && WorkData.Count() !=0)
