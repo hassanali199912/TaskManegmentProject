@@ -1,18 +1,41 @@
-﻿<div class="col-lg-3 col-md-6 col-sm-12 col-12  p-1">
+﻿@using TaskManegmentProject.DBcontcion
+
+ @model MyTask 
+
+<div class="col-lg-3 col-md-6 col-sm-12 col-12  p-1">
 	<div class="task-card card">
 		<div class="task-card-content-container">
-			<h3>task 1</h3>
+			<h3>@Model.Title</h3>
 			<p>
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-				Ipsum has been the industry's standard dummy
+				@Model.Description
 			</p>
 		</div>
 		<div class="task-card-container">
-			<h6>04/10/2024</h6>
+			<h6>
+				@Model.CreatedAt
+
+			</h6>
 			<div class="task-card-footer">
-				<button class="state-btn btn success">
-					Complete
-				</button>
+				@* Pending,
+				InProgress,
+				Compleated *@
+				@if (Model.Status == TaskManegmentProject.Enums.TaskStatus.Pending)
+				{
+					<button class="state-btn btn warning">
+						@Model.Status
+					</button>
+				}
+				else if (Model.Status ==TaskManegmentProject.Enums.TaskStatus.InProgress)
+				{
+					<button class="state-btn btn danger">
+						@Model.Status
+					</button>
+				}else{
+					<button class="state-btn btn success">
+						@Model.Status
+					</button>
+				}
+
 				<div class="control-buttons">
 					<div class="task-card-content-members">
 						<div class="members-div">

@@ -58,14 +58,14 @@
 						No Taskes Added Yet
 					</button>
 				</div>
-				<partial name="_TaskCard" />
+				
 
 			}
 			else
 			{
 				@foreach (var item in Model.Tasks)
 				{
-					<partial name="_TaskCard" />
+					<partial name="_TaskCard" model="@item" />
 				}
 
 			}

@@ -30,6 +30,6 @@ namespace TaskManegmentProject.DBcontcion.ViewModels
         public string WorkSpaceId { get; set; }
 
         public string? AssignTo{ get; set; }
-        public List<MemberWorkSpace> Members { get; set; }
+        
     }
 }

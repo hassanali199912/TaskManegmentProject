@@ -1039,6 +1039,9 @@ table {
                 .task-section .task-section-content .task-card .task-card-footer .state-btn.danger {
                     background-color: var(--orange-color);
                 }
+                .task-section .task-section-content .task-card .task-card-footer .state-btn.warning {
+                    background-color: var(--red-color);
+                }
 
             .task-section .task-section-content .task-card .task-card-footer .control-buttons {
                 display: flex;

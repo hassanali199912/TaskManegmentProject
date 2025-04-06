@@ -6,6 +6,8 @@
 
 @{
 	ViewData["Title"] = "Add";
+
+
 }
 
 <div class="task-section-content card-body">
@@ -63,12 +65,12 @@
 								<span>---- Task For All ----</span>
 							</a>
 						</li>
-						@foreach (MemberWorkSpace item in Model.Members)
+						@foreach (MemberWorkSpace item in ViewBag.membersList)
 						{
 							<li>
 								<a class="dropdown-item d-flex align-items-center gap-2"
 								   href="#"
-								   data-value="@item.Id"
+								   data-value="@item.User.Id"
 								   onclick="selectMember(this)">
 									<img src="@(item.User?.ImageUrl ?? "/img/avatar-images/avatar-1.jpeg")"
 										 alt="User image"

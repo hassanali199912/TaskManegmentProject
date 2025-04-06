@@ -6,14 +6,12 @@ namespace TaskManegmentProject.DBcontcion
     public class MyTask :GeneralEntity
     {
         public string CreatedBy { get; set; }
-
         public string WorkSpaceId { get; set; }
-
         public string Title { get; set; }
         public string Description { get; set; }
         public Enums.TaskStatus Status { get; set; }
         public TaskPriority Priority { get; set; }
-
+        public string?  AssignTo { get; set; }
 
 
 
@@ -23,7 +21,8 @@ namespace TaskManegmentProject.DBcontcion
         [ForeignKey("WorkSpaceId")]
         public WorkSpace WorkSpace { get; set; }
 
-        public List<TaskAssignment>? TaskAssignments { get; set; }
+        [ForeignKey("AssignTo")]
+        public ApplicationUser AssignUser { get; set; }
 
     }
 }

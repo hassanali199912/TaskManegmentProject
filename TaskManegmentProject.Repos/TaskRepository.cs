@@ -23,7 +23,7 @@ namespace TaskManegmentProject.Repos
         {
             return _context.MyTask
                 .Where(t => !string.IsNullOrEmpty(userId) &&
-                           (t.CreatedBy == userId || t.TaskAssignments.Any(ta => ta.UserId == userId)));
+                           (t.CreatedBy.Equals(userId) || t.AssignTo.Equals(userId)));
         }
 
        

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskManegmentProject.DBcontcion;
 
@@ -11,9 +12,11 @@ using TaskManegmentProject.DBcontcion;
 namespace TaskManegmentProject.DBcontcion.Migrations
 {
     [DbContext(typeof(TMContextDB))]
-    partial class TMContextDBModelSnapshot : ModelSnapshot
+    [Migration("20250406103505_editMyTaskAssignto")]
+    partial class editMyTaskAssignto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -331,6 +334,7 @@ namespace TaskManegmentProject.DBcontcion.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AssignTo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -572,7 +576,9 @@ namespace TaskManegmentProject.DBcontcion.Migrations
                 {
                     b.HasOne("TaskManegmentProject.DBcontcion.ApplicationUser", "AssignUser")
                         .WithMany()
-                        .HasForeignKey("AssignTo");
+                        .HasForeignKey("AssignTo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TaskManegmentProject.DBcontcion.ApplicationUser", "User")
                         .WithMany()
