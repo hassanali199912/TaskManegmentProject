@@ -2,7 +2,10 @@
 @model List<Notification>  
 
 <div class="notification-bell">
-    <button onclick="ToggleBTN('notification-bell-popup')"><i class="fa-regular fa-bell"></i></button>
+    <button onclick="ToggleBTN2('notification-bell-popup')">
+        <i class="fa-regular fa-bell"></i>
+        <span class="notification-dot" style="display: none;"></span>
+    </button>
     <div class="notification-bell-popup"
     id="notification-bell-popup">
         <p>Notifications</p>
@@ -31,7 +34,7 @@
 		</div>
 	</div>
 </div>
-
+<audio id="notification-sound" src="/sound/notification.mp3" preload="auto"></audio>
 
 <script src="/microsoft-signalr/signalr.min.js"></script>
 <script >
@@ -85,9 +88,21 @@
 
             $(".notifications-box").prepend(newNot);
             $(".no-notifcations-div").remove();
+
+            const notificationSound = document.getElementById("notification-sound");
+            notificationSound.play().catch(err => console.error("Error playing sound:", err));
+
+            $(".notification-dot").show();
         }
     });
+    function ToggleBTN2(popupId) {
+        const popup = document.getElementById(popupId);
+        $(`#${popupId}`).toggleClass("active");
 
+        if (popup.classList.contains("active")) {
+            $(".notification-dot").hide();
+        }
+    }
 
 
 </script>

@@ -146,7 +146,7 @@ namespace TaskManegmentProject.Controllers
 
                 ApplicationUser newUser = new ApplicationUser
                 {
-                    UserName=regiesterUser.Email,
+                    UserName=regiesterUser.Name,
                     Name = regiesterUser.Name,
                     Email = regiesterUser.Email,
                                         

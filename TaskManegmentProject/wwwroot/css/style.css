@@ -186,11 +186,13 @@ table {
     background-color: var(--white-color);
     border-color: var(--dark-color);
 }
+
     .btn-primary:hover {
         background-color: var(--dark-color);
         color: var(--white-color);
         border-color: var(--dark-color);
     }
+
 .modal-content {
     --bs-modal-bg: var(--dark-color) !important;
     --bs-modal-color: var(--white-color) !important;
@@ -201,6 +203,7 @@ table {
     color: var(--white-color);
     border-color: var(--gray-color) !important
 }
+
     .form-control:focus {
         background-color: var(--dark-color) !important;
         color: var(--white-color) !important;
@@ -562,6 +565,8 @@ table {
         border: 1px solid transparent;
         transition: all .3s ease-in-out;
         cursor: pointer;
+        text-decoration: none;
+        color: var(--dark-color);
     }
 
         .side-nav-bar .profile-div:hover {
@@ -728,6 +733,7 @@ table {
     justify-content: center;
     align-items: center;
 }
+
 .task-section .task-section-header a {
     border: 0;
     border-radius: 50%;
@@ -742,12 +748,13 @@ table {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-decoration:none;
+    text-decoration: none;
 }
 
-    .task-section .task-section-header button:hover {
-        background-color: var(--light-hover-dark);
-    }
+.task-section .task-section-header button:hover {
+    background-color: var(--light-hover-dark);
+}
+
 .task-section .task-section-header a:hover {
     background-color: var(--light-hover-dark);
 }
@@ -777,7 +784,6 @@ table {
 
     .task-section .header-controls .notification-bell .notification-bell-popup {
         min-width: 400px;
-        
     }
 
         .task-section .header-controls .memebers-plus .user-plus-popup.active, .task-section .header-controls .notification-bell .notification-bell-popup.active {
@@ -810,8 +816,7 @@ table {
 
 
     .task-section .header-controls .memebers-plus .user-plus-popup .add-btn button,
-    .task-section .header-controls .memebers-plus .user-plus-popup .add-btn input
-    {
+    .task-section .header-controls .memebers-plus .user-plus-popup .add-btn input {
         width: 100%;
         border: 0;
         border-radius: 5px;
@@ -863,56 +868,70 @@ table {
     /*#endregion User Plus Popup*/
 
     /* #region Notifcation Bell */
+.notification-dot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    display: none; 
+
+}
     .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box {
         max-height: 300px;
         overflow-y: auto;
     }
+
         .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item {
-        display: flex;
-        border-bottom: 1px solid var(--gray-color);
-        cursor: pointer;
-        margin:0.5rem 0;
-        padding: 1rem ;
-    }
-
-        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item:last-child {
-            border-bottom: 0
+            display: flex;
+            border-bottom: 1px solid var(--gray-color);
+            cursor: pointer;
+            margin: 0.5rem 0;
+            padding: 1rem;
         }
 
-        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item span {
-            color: var(--gray-color2);
-            font-size: .7rem;
-            margin-right: 1rem;
-        }
+            .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item:last-child {
+                border-bottom: 0
+            }
+
+            .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item span {
+                color: var(--gray-color2);
+                font-size: .7rem;
+                margin-right: 1rem;
+            }
 
 
-        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 1rem;
-        }
+            .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-right: 1rem;
+            }
 
 
-        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item .notifications-box-item-info {
-            font-size: 0.6rem;
-            color: var(--white-color2);
-            flex: 1;
-        }
+            .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item .notifications-box-item-info {
+                font-size: 0.6rem;
+                color: var(--white-color2);
+                flex: 1;
+            }
 
             .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item:hover {
-                background-color:var(--dark-color);
+                background-color: var(--dark-color);
             }
+
             .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item .notifications-box-item-info h5 {
                 font-size: 1rem;
                 font-weight: bold;
                 color: var(--white-color);
             }
+
             .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item .notifications-box-item-info p {
                 font-size: 0.8rem;
-                font-weight:bold;
-                padding:0.2rem 0 0 0 ;
+                font-weight: bold;
+                padding: 0.2rem 0 0 0;
             }
 /* #endregion Notifcation Bell */
 
@@ -1039,6 +1058,7 @@ table {
                 .task-section .task-section-content .task-card .task-card-footer .state-btn.danger {
                     background-color: var(--orange-color);
                 }
+
                 .task-section .task-section-content .task-card .task-card-footer .state-btn.warning {
                     background-color: var(--red-color);
                 }
@@ -1046,7 +1066,7 @@ table {
             .task-section .task-section-content .task-card .task-card-footer .control-buttons {
                 display: flex;
                 gap: 1rem;
-                align-items:center;
+                align-items: center;
                 font-size: .8rem;
             }
 
@@ -1061,7 +1081,7 @@ table {
                     transition: all .3s ease-in-out;
                 }
 
-                    .task-section .task-section-content .task-card .task-card-footer .control-buttons button:hover, 
+                    .task-section .task-section-content .task-card .task-card-footer .control-buttons button:hover,
                     .task-section .task-section-content .task-card .task-card-footer .control-buttons a:hover {
                         color: var(--green-color);
                     }
@@ -1177,34 +1197,37 @@ table {
 =========================================**/
 
 /*#region task-page*/
-.task-page{
-    padding:2rem 0 0 0;
+.task-page {
+    padding: 2rem 0 0 0;
 }
-    .task-page h2{
-        font-size:1.5rem;
-        letter-spacing:3px;
-        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        text-transform:uppercase;
+
+    .task-page h2 {
+        font-size: 1.5rem;
+        letter-spacing: 3px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        text-transform: uppercase;
     }
+
     .task-page h2,
     .task-page form label {
         color: var(--white-color);
     }
 
     .task-page form {
-        padding-top:2rem ;
+        padding-top: 2rem;
     }
 
         .task-page form input,
         .task-page form textarea,
         .task-page form select,
-        .task-page form .dropdown button{
+        .task-page form .dropdown button {
             background-color: var(--dark-color) !important;
             color: var(--white-color) !important;
             border: 1px solid var(--gray-color2) !important;
             border-radius: 5px !important;
             padding: 0.5rem !important;
         }
+
             .task-page form select:focus,
             .task-page form .dropdown button:focus {
                 box-shadow: none;
@@ -1212,6 +1235,82 @@ table {
             }
 
 /*#endregion task-page*/
+
+/**======================================
+            Profile Mode 
+=========================================**/
+/*#region Profile Page */
+.profile {
+    padding: 3rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+.profile-header {
+    color: var(--white-color);
+}
+
+    .profile-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .profile-header h4 {
+        font-size: 1rem;
+        padding: 1rem 0 0 0;
+        color: var(--gray-color2);
+    }
+
+.profile-container {
+    margin: 3rem 0 0 0;
+    padding: 3rem 0;
+    background-color:var(--dark-color);
+    color:var(--white-color);
+    border-radius:20px;
+
+}
+
+    .profile-container .porfile-image-div .img-container {
+        width: 200px;
+        overflow: hidden;
+        position: relative;
+        margin:auto
+    }
+
+    .profile-container .porfile-image-div img {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+.edit-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--green-color);
+}
+    .edit-icons:hover i{
+        color: var(--white-color);
+    }
+    .edit-icons:focus,.edit-icons:active,.edit-icons:checked
+    {
+        box-shadow:none;
+        border-color:transparent;
+
+    }
+
+    .image-uploader input[type="file"] {
+        display: none;
+    }
+
+.image-uploader input[type="submit"] {
+    display:block;
+    margin:2rem  auto 0;
+}
+.data-profile-form input[disabled]{
+    color:var(--white-color) !important; 
+    background-color:var(--gray-color2);
+}
+/*#endregion Profile Page */
 /**======================================
             Media Ouery Mode 
 =========================================**/

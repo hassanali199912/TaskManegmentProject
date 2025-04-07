@@ -31,6 +31,7 @@
   <ItemGroup>
     <Folder Include="CustomAttribuites\" />
     <Folder Include="CustomIdentity\" />
+    <Folder Include="wwwroot\uploaded-file\" />
   </ItemGroup>
 
   <ItemGroup>
