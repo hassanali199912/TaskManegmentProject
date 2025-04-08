@@ -57,12 +57,34 @@ public class HomeController : Controller
         ViewData["workSpaceList"] = WorkData;
 
         if (id == null) {
+            if(WorkData!=null &&  WorkData.Count()!=0 )
+            {
             id = WorkData[0].Id;
             List<Notification> notificationsWorkSpace = await _notificationRepository
                 .GetAllByWorkSpaceId(id);
             ViewData["NotifcationsList"] = notificationsWorkSpace;
             ViewData["SelectedWorkSpace"] = WorkData[0];
             return View("Index", WorkData[0]);
+            }
+            else
+            {
+                WorkSpace work = new WorkSpace()
+                {
+                    Name = "Frist Work Space",
+                    OwnerID = authUser.Id,
+
+                };
+                await _workSpaceRepository.CreateAsync(work);
+                await _workSpaceRepository.SaveAsync();
+
+                WorkSpace fristWorkSpace = await _workSpaceRepository.GetByOwnerId(authUser.Id);
+                List<Notification> notificationsWorkSpace = await _notificationRepository
+                .GetAllByWorkSpaceId(work.Id);
+                ViewData["NotifcationsList"] = notificationsWorkSpace;
+                ViewData["SelectedWorkSpace"] = work.Id;
+
+                return View("Index", fristWorkSpace);
+            }
         }
 
         if (WorkData != null && WorkData.Count() !=0)

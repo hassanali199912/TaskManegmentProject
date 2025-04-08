@@ -1,0 +1,39 @@
+﻿@using TaskManegmentProject.DBcontcion
+@model MyTask
+
+
+
+<div class="col-lg-3 col-md-6 col-sm-12 col-12  p-1">
+	<div class="task-card card">
+		<div class="task-card-content-container">
+			<h3>@Model.Title</h3>
+			<p>
+				@Model.Description
+			</p>
+		</div>
+		<div class="task-card-container">
+			<h6>@Model.CreatedAt</h6>
+			<div class="task-card-footer">
+				@if (Model.Status == TaskManegmentProject.Enums.TaskStatus.Pending)
+				{
+					<button class="state-btn btn warning">
+						@Model.Status
+					</button>
+				}
+				else if (Model.Status == TaskManegmentProject.Enums.TaskStatus.InProgress)
+				{
+					<button class="state-btn btn danger">
+						@Model.Status
+					</button>
+				}
+				else
+				{
+					<button class="state-btn btn success">
+						@Model.Status
+					</button>
+				}
+
+			</div>
+		</div>
+	</div>
+</div>

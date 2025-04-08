@@ -8,5 +8,6 @@ namespace TaskManegmentProject.Repos
         Task<List<WorkSpace>> GetAllWorkSpaceByOwnerId(string id);
         Task<WorkSpace> GetByOwnerIdAndWorkSpcaeId(string ownerId, string worksapceId);
 
+        Task<List<WorkSpace>> GetAllWorkSpaceThatSharedWithMe(string userId);
     }
 }

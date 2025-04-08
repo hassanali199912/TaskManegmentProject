@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Runtime.ConstrainedExecution;
+using Microsoft.EntityFrameworkCore;
 using TaskManegmentProject.DBcontcion;
 
 namespace TaskManegmentProject.Repos
@@ -20,6 +21,16 @@ namespace TaskManegmentProject.Repos
                                            Where(e => e.OwnerID.Equals(id))
                                            .Include(i => i.Tasks).Include(i => i.Members).ThenInclude(i => i.User)
                                            .ToListAsync(); ;
+        }
+
+        public async Task<List<WorkSpace>> GetAllWorkSpaceThatSharedWithMe(string userId)
+        {
+            return await _context.WorkSpaces
+          .Include(w => w.Members)
+          .ThenInclude(m => m.User)
+          .Where(w => w.Members.Any(m => m.User.Id == userId))
+          .ToListAsync(); 
+            
         }
 
         public async Task<WorkSpace> GetByOwnerId(string id)

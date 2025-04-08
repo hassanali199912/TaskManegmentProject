@@ -1,4 +1,5 @@
-﻿using TaskManegmentProject.DBcontcion;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskManegmentProject.DBcontcion;
 
 namespace TaskManegmentProject.Repos
 {
@@ -26,6 +27,20 @@ namespace TaskManegmentProject.Repos
                            (t.CreatedBy.Equals(userId) || t.AssignTo.Equals(userId)));
         }
 
-       
+
+        public async Task<List<MyTask>> GetTasksByStatusAndUserIdAsync(int status, string userId, string workSpaceId)
+        {
+            IQueryable<MyTask> tasks = _context.MyTask.Where(t => t.AssignTo == userId && t.WorkSpaceId == workSpaceId);
+
+            if (status >= 0)
+            {
+                tasks = tasks.Where(t => (int)t.Status == status);
+            }
+
+            return await tasks.ToListAsync();
+        }
+
+
+
     }
 }
