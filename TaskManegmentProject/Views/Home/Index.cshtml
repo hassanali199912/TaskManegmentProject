@@ -13,13 +13,8 @@
 }
 
 
-@* <partial name="_SideHomeLayout" /> *@
 
-
-@* <section class="task-section card">
- *@
 	<input type="hidden" value="@Model.Id" id="work-space-id" />
-	@* <partial name="_TaskSectionHeader" model="@Model"  /> *@
 	<div class="task-section-header card-header">
 
 		<partial name="_SelectedListWorkSpace" model="@myWorkSpacesList" />
@@ -79,11 +74,7 @@
 		</div>
 	</div>
 
-@* </section> *@
-
-@* <partial name="_FlipModeJs" />
-<partial name="_ValidationScriptsPartial" /> *@
-
+	<partial name="_ChatBox" />
 
 <script>
 

@@ -1,0 +1,139 @@
+﻿
+
+
+
+<button class="chat-box" id="chat-box-id">
+	<i class="fa-brands fa-rocketchat"></i>
+</button>
+
+<div class="chat-box-content" id="chat-box-content">
+	<div class="chat-box-header-members row">
+		<div class="col-5">
+			<div class="header-members-item">
+				<img src="~/img/avatar-images/avatar-1.jpeg" />
+			</div>
+			<div class="header-members-item">
+				<img src="~/img/avatar-images/avatar-2.jpeg" />
+			</div>
+			<div class="header-members-item">
+				<img src="~/img/avatar-images/avatar-3.jpeg" />
+			</div>
+			<div class="header-members-item">
+				<img src="~/img/avatar-images/avatar-4.jpeg" />
+			</div>
+		</div>
+		<div class="header-text col-7 d-flex flex-column gap-2  ">
+			<h4>Work Space:</h4>
+			<p>ITI Work</p>
+		</div>
+
+
+	</div>
+	<div class="chat-box-body" id="chat-box-body">
+
+		<div class="message-box message-resived">
+			<div class="row">
+				<div class="col-2 res-img">
+					<img src="~/img/avatar-images/avatar-8.png" />
+				</div>
+				<div class="col-9 res-text">
+					<p>Hassan</p>
+					<div class="res-text-content">
+						this is content
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="message-box message-resived">
+			<div class="row">
+				<div class="col-2 res-img">
+					<img src="~/img/avatar-images/avatar-5.png" />
+				</div>
+				<div class="col-9 res-text">
+					<p>Hassan</p>
+					<div class="res-text-content">
+						this is content
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="message-box message-sender">
+			<div class="row flex-row-reverse">
+				<div class="col-9 sen-text">
+					<div class="sen-text-content">
+						this is content
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class=" message-box message-resived">
+			<div class="row">
+				<div class="col-2 res-img">
+					<img src="~/img/avatar-images/avatar-6.png" />
+				</div>
+				<div class="col-9 res-text">
+					<p>Hassan</p>
+					<div class="res-text-content">
+						this is content
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="message-box message-sender">
+			<div class="row flex-row-reverse">
+				<div class="col-9 sen-text">
+					<div class="sen-text-content">
+						this is content
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div class="chat-text-message-controllers">
+			<textarea class="controllers-textarea" placeholder="Write a text"></textarea>
+			<button class="btn controllers-button">
+				<i class="fa-solid fa-paper-plane"></i>
+			</button>
+		</div>
+	</div>
+</div>
+
+
+
+
+<partial name="_validationscriptspartial" />
+<script>
+
+		$("#chat-box-id").on("click", function() {
+		let icon = $("#chat-box-id i");
+		$(this).toggleClass("shake_animaion");
+		$("#chat-box-content").toggleClass("active");
+			
+
+					let chatBox = $("#chat-box-body")[0];
+								
+				chatBox.scrollTop = chatBox.scrollHeight;
+
+
+		icon.fadeOut(200, function() {
+			$(this).toggleClass("fa-brands fa-rocketchat fa-solid fa-xmark").fadeIn(200);
+		});
+	});
+
+
+
+
+
+
+
+
+</script>
+
+

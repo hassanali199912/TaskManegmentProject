@@ -21,6 +21,10 @@
     --blue-color: #1e90ff;
     --purple-color: #8a2be2;
     --red-color: #ff4757;
+    /*Chat color*/
+    /*resiver massage*/
+    --resive-ms-color: #f4f3f4;
+    --send-ms-color: #e8eafe;
 }
 
 body.dark {
@@ -865,9 +869,9 @@ table {
         }
 
 
-    /*#endregion User Plus Popup*/
+/*#endregion User Plus Popup*/
 
-    /* #region Notifcation Bell */
+/* #region Notifcation Bell */
 .notification-dot {
     position: absolute;
     top: 0;
@@ -876,63 +880,63 @@ table {
     height: 10px;
     background-color: red;
     border-radius: 50%;
-    display: none; 
-
+    display: none;
 }
-    .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box {
-        max-height: 300px;
-        overflow-y: auto;
+
+.task-section .header-controls .notification-bell .notification-bell-popup .notifications-box {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+    .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item {
+        display: flex;
+        border-bottom: 1px solid var(--gray-color);
+        cursor: pointer;
+        margin: 0.5rem 0;
+        padding: 1rem;
     }
 
-        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item {
-            display: flex;
-            border-bottom: 1px solid var(--gray-color);
-            cursor: pointer;
-            margin: 0.5rem 0;
-            padding: 1rem;
+        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item:last-child {
+            border-bottom: 0
         }
 
-            .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item:last-child {
-                border-bottom: 0
-            }
-
-            .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item span {
-                color: var(--gray-color2);
-                font-size: .7rem;
-                margin-right: 1rem;
-            }
+        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item span {
+            color: var(--gray-color2);
+            font-size: .7rem;
+            margin-right: 1rem;
+        }
 
 
-            .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item img {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                object-fit: cover;
-                margin-right: 1rem;
-            }
+        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
 
 
-            .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item .notifications-box-item-info {
-                font-size: 0.6rem;
-                color: var(--white-color2);
-                flex: 1;
-            }
+        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item .notifications-box-item-info {
+            font-size: 0.6rem;
+            color: var(--white-color2);
+            flex: 1;
+        }
 
-            .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item:hover {
-                background-color: var(--dark-color);
-            }
+        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item:hover {
+            background-color: var(--dark-color);
+        }
 
-            .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item .notifications-box-item-info h5 {
-                font-size: 1rem;
-                font-weight: bold;
-                color: var(--white-color);
-            }
+        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item .notifications-box-item-info h5 {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--white-color);
+        }
 
-            .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item .notifications-box-item-info p {
-                font-size: 0.8rem;
-                font-weight: bold;
-                padding: 0.2rem 0 0 0;
-            }
+        .task-section .header-controls .notification-bell .notification-bell-popup .notifications-box .notifications-box-item .notifications-box-item-info p {
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 0.2rem 0 0 0;
+        }
 /* #endregion Notifcation Bell */
 
 /* #region Task Header Module */
@@ -1201,17 +1205,18 @@ table {
 =========================================**/
 
 /*#region Not Share Page*/
-.not-shared-div{
-    width:100%;
-    height:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+.not-shared-div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.not-shared-div  h1{
-    font-size:2rem;
-    color:var(--red-color);
-}
+
+    .not-shared-div h1 {
+        font-size: 2rem;
+        color: var(--red-color);
+    }
 /*#endregion Not Shaare Page*/
 /**======================================
             Add Page
@@ -1256,6 +1261,10 @@ table {
 
 /*#endregion task-page*/
 
+
+
+
+
 /**======================================
             Profile Mode 
 =========================================**/
@@ -1282,17 +1291,16 @@ table {
 .profile-container {
     margin: 3rem 0 0 0;
     padding: 3rem 0;
-    background-color:var(--dark-color);
-    color:var(--white-color);
-    border-radius:20px;
-
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    border-radius: 20px;
 }
 
     .profile-container .porfile-image-div .img-container {
         width: 200px;
         overflow: hidden;
         position: relative;
-        margin:auto
+        margin: auto
     }
 
     .profile-container .porfile-image-div img {
@@ -1308,27 +1316,28 @@ table {
     left: 0;
     background-color: var(--green-color);
 }
-    .edit-icons:hover i{
+
+    .edit-icons:hover i {
         color: var(--white-color);
     }
-    .edit-icons:focus,.edit-icons:active,.edit-icons:checked
-    {
-        box-shadow:none;
-        border-color:transparent;
 
+    .edit-icons:focus, .edit-icons:active, .edit-icons:checked {
+        box-shadow: none;
+        border-color: transparent;
     }
 
-    .image-uploader input[type="file"] {
-        display: none;
-    }
+.image-uploader input[type="file"] {
+    display: none;
+}
 
 .image-uploader input[type="submit"] {
-    display:block;
-    margin:2rem  auto 0;
+    display: block;
+    margin: 2rem auto 0;
 }
-.data-profile-form input[disabled]{
-    color:var(--white-color) !important; 
-    background-color:var(--gray-color2);
+
+.data-profile-form input[disabled] {
+    color: var(--white-color) !important;
+    background-color: var(--gray-color2);
 }
 /*#endregion Profile Page */
 /**======================================
@@ -1434,5 +1443,210 @@ table {
 }
 /*#endregion Dark / Light Mode*/
 
+
+
+
+/**======================================
+            Chat Box
+=========================================**/
+
+/*#region Chat Box Page*/
+.chat-box {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 60px;
+    aspect-ratio: 1;
+    background: var(--light-hover-dark);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--blue-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .chat-box i {
+        color: var(--blue-color);
+        font-size: 1.5rem;
+        margin: 0 !important;
+        padding: 0 !important;
+        cursor: pointer;
+    }
+
+    .chat-box:hover {
+        background: var(--blue-color);
+        border-color: var(--light-hover-dark);
+    }
+
+        .chat-box:hover i {
+            color: var(--light-hover-dark);
+        }
+
+.chat-box {
+    display: inline-block; 
+}
+
+    .chat-box.shake_animaion {
+        animation: shake 0.5s alternate; 
+    }
+
+@keyframes shake {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(5px, 5px);
+    }
+
+    50% {
+        transform: translate(-5px, -5px);
+    }
+
+    75% {
+        transform: translate(5px, -5px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+
+
+.chat-box-content {
+    position: absolute;
+    bottom: 80px;
+    right: 25px;
+    width: 80%;
+    max-width: 300px;
+    aspect-ratio: 1/1.5;
+    background-color: var(--white-color);
+    border-radius: 10px;
+    overflow: hidden;
+    display:none;
+    opacity:0;
+    transition:all 0.8s ease;
+
+}
+.chat-box-content.active {
+    display:block;
+    opacity:1;
+
+}
+    .chat-box-content .chat-box-header-members {
+        background-color:var(--blue-color);
+        height:80px;
+        border-right:10px 0 0 10px;
+        padding:1rem;
+    }
+    .chat-box-content .chat-box-header-members div {
+        display:flex;
+    }
+        .chat-box-header-members .header-members-item{
+    width:50px;
+    border-radius:50%;
+    overflow:hidden;
+    margin-right:-43px;
+    border:1px solid var(--black-color);
+}
+.chat-box-header-members .header-members-item img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+.chat-box-header-members .header-text {
+    color: var(--white-color);
+}
+
+.chat-box-body {
+    height: calc((( 300px * 1.5 ) - 80px ));
+    width:100%;
+    background-color: var(--white-color);
+    overflow:auto;
+    padding-bottom:5rem ;
+}
+.chat-text-message-controllers{
+    position:absolute;
+    width:100%;
+    height:60px;
+    bottom:0;
+    left:0;
+    display:flex;
+    border-top:1px solid var(--gray-color);
+    padding:10px 5px;
+    background-color:var(--white-color);
+}
+.chat-text-message-controllers textarea {
+    width:100%;
+    resize:none;
+    overflow:auto;
+    padding:0.5rem;
+    border:none;
+}
+.chat-text-message-controllers textarea:focus {
+    border:none;
+    box-shadow:none;
+    outline:none;
+}
+    .chat-text-message-controllers textarea::placeholder {
+        color:var(--gray-color2);
+        opacity:0.7;
+    }
+
+    .chat-text-message-controllers .controllers-button i{
+        opacity:0.7;
+        transition:all 0.5s ease;
+    }
+
+    .chat-text-message-controllers .controllers-button:hover i {
+        opacity: 1;
+        color:var(--blue-color);
+    }
+
+
+
+.message-resived,
+.message-sender {
+    width: 100%;
+    padding: 1rem;
+}
+    .message-resived .res-img {
+        align-self:flex-end;
+        
+    }
+        .message-resived .res-img img {
+            width: 100%;
+            border-radius: 50%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            display: block;
+            margin: auto
+        }
+    .message-resived .res-text p {
+        font-size:0.6rem;
+        font-weight:bold;
+        padding-bottom:0.3rem;
+    }
+    .message-resived .res-text-content {
+        background-color: var(--resive-ms-color);
+        padding:0.5rem 0.7rem;
+        min-height:40px;
+        border-radius:10px;
+    }
+
+    .message-sender .sen-text-content {
+        background-color: var(--send-ms-color);
+        padding: 0.5rem 0.7rem;
+        min-height: 40px;
+        border-radius: 10px;
+    }
+
+
+
+
+        /*#endregion Chat Box Page*/
 
 
