@@ -2,6 +2,7 @@
 @model TaskManegmentProject.DBcontcion.ViewModels.WorkSpaceWithTasksViewModel
 
 @using Microsoft.AspNetCore.Identity
+@using TaskManegmentProject.DBcontcion.ViewModels
 @inject UserManager<ApplicationUser> UserManager
 
 @{
@@ -15,7 +16,16 @@
 
     ViewData["workSpaceId"] = Model.WorkSpace.Id;
     ViewData["SelectedWorkSpace"] = Model.WorkSpace;
+
+    ChatWorkSpaceViewModel workSpaceChatViewModel =
+    new ChatWorkSpaceViewModel
+            {
+                messages = Model.Message,
+                members = Model.Members,
+            };
 }
+
+<input type="hidden" value="@Model.WorkSpace.Id" id="work-space-id" />
 
 <div class="task-section-header card-header">
     <partial name="_SelectedListWorkSpaceShared" model="@myWorkSpacesList" />
@@ -55,6 +65,10 @@
         }
     </div>
 </div>
+
+<partial name="_ChatBox" model="@workSpaceChatViewModel" />
+
+
 
 <partial name="_FlipModeJs" />
 <partial name="_ValidationScriptsPartial" />

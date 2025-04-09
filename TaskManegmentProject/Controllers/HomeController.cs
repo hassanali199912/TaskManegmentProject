@@ -23,7 +23,9 @@ public class HomeController : Controller
     private readonly IWorkSpaceRepository _workSpaceRepository;
     private readonly IMemberWorkSpaceRepository _memberWorkSpaceRepository;
     private readonly INotificationRepositry _notificationRepository;
+    private readonly IMessageChatRepository _messageChatRepository;
     private readonly IHubContext<NotifcationHub> _hubContext;
+    private readonly IHubContext<Chat> _chatHubContext;
 
     public HomeController(
         UserManager<ApplicationUser> userManger,
@@ -31,9 +33,13 @@ public class HomeController : Controller
         SignInManager<ApplicationUser> signInManager,
         ILogger<AccountController> logger,
         IWorkSpaceRepository workSpaceRepository,
-        IMemberWorkSpaceRepository memberWorkSpaceRepository ,
+        IMemberWorkSpaceRepository memberWorkSpaceRepository,
         INotificationRepositry notificationRepository,
-        IHubContext<NotifcationHub> hubContext)
+        IMessageChatRepository messageChatRepository,
+        IHubContext<NotifcationHub> hubContext,
+        IHubContext<Chat> chatHubContext
+
+        )
     {
         _userManager = userManger;
         _roleManager = roleManager;
@@ -42,29 +48,39 @@ public class HomeController : Controller
         _workSpaceRepository = workSpaceRepository;
         _memberWorkSpaceRepository = memberWorkSpaceRepository;
         _notificationRepository = notificationRepository;
+        _messageChatRepository = messageChatRepository;
         _hubContext = hubContext;
+        _chatHubContext = chatHubContext;
     }
 
     [HttpGet]
 
     public async Task<IActionResult> Index(string id)
     {
-        
 
-            ApplicationUser  authUser =  await _userManager.GetUserAsync(User);
-            List<WorkSpace> WorkData = 
-                await _workSpaceRepository.GetAllWorkSpaceByOwnerId(authUser.Id);
+
+        ApplicationUser authUser = await _userManager.GetUserAsync(User);
+        List<WorkSpace> WorkData =
+            await _workSpaceRepository.GetAllWorkSpaceByOwnerId(authUser.Id);
         ViewData["workSpaceList"] = WorkData;
 
-        if (id == null) {
-            if(WorkData!=null &&  WorkData.Count()!=0 )
+        if (id == null)
+        {
+            if (WorkData != null && WorkData.Count() != 0)
             {
-            id = WorkData[0].Id;
-            List<Notification> notificationsWorkSpace = await _notificationRepository
-                .GetAllByWorkSpaceId(id);
-            ViewData["NotifcationsList"] = notificationsWorkSpace;
-            ViewData["SelectedWorkSpace"] = WorkData[0];
-            return View("Index", WorkData[0]);
+                id = WorkData[0].Id;
+                List<Notification> notificationsWorkSpace = await _notificationRepository
+                    .GetAllByWorkSpaceId(id);
+
+                List<MessageChat> messageChats = await _messageChatRepository.GetAllMessageByWorkSpaceId(id);
+                List<MemberWorkSpace> workSpacesMembers = WorkData[0].Members;
+
+                ViewData["NotifcationsList"] = notificationsWorkSpace;
+                ViewData["SelectedWorkSpace"] = WorkData[0];
+                ViewData["messages"] = WorkData[0].Messages ;
+                ViewData["members"] = WorkData[0].Members;
+
+                return View("Index", WorkData[0]);
             }
             else
             {
@@ -82,26 +98,30 @@ public class HomeController : Controller
                 .GetAllByWorkSpaceId(work.Id);
                 ViewData["NotifcationsList"] = notificationsWorkSpace;
                 ViewData["SelectedWorkSpace"] = work.Id;
-
+                ViewData["messages"] = work.Messages;
+                ViewData["members"] = work.Members;
                 return View("Index", fristWorkSpace);
             }
         }
 
-        if (WorkData != null && WorkData.Count() !=0)
+        if (WorkData != null && WorkData.Count() != 0)
         {
             WorkSpace selectedWorSpace = WorkData.Find(e => e.Id.Equals(id));
 
-            if (selectedWorSpace != null) { 
+            if (selectedWorSpace != null)
+            {
 
-            List<Notification> notificationsWorkSpace = await 
-                    _notificationRepository.GetAllByWorkSpaceId(selectedWorSpace.Id);
-            ViewData["NotifcationsList"] = notificationsWorkSpace;
-            ViewData["SelectedWorkSpace"] = selectedWorSpace;
-            return View("Index", selectedWorSpace);
+                List<Notification> notificationsWorkSpace = await
+                        _notificationRepository.GetAllByWorkSpaceId(selectedWorSpace.Id);
+                ViewData["NotifcationsList"] = notificationsWorkSpace;
+                ViewData["SelectedWorkSpace"] = selectedWorSpace;
+                ViewData["messages"] = selectedWorSpace.Messages;
+                ViewData["members"] = selectedWorSpace.Members;
+                return View("Index", selectedWorSpace);
             }
 
         }
-        
+
         return View("Index");
 
 
@@ -113,7 +133,7 @@ public class HomeController : Controller
     public async Task<IActionResult> AddWorkSpace(string workSpaceName)
     {
         ApplicationUser getUser = await _userManager.GetUserAsync(User);
-        if(getUser == null)
+        if (getUser == null)
         {
             return Unauthorized();
         }
@@ -128,10 +148,11 @@ public class HomeController : Controller
             OwnerID = getUser.Id
 
         };
-            await _workSpaceRepository.CreateAsync(newWork);
-            await _workSpaceRepository.SaveAsync();
+        await _workSpaceRepository.CreateAsync(newWork);
+        await _workSpaceRepository.SaveAsync();
 
-        return Json(new {
+        return Json(new
+        {
             success = true,
             workSpace = new
             {
@@ -147,7 +168,7 @@ public class HomeController : Controller
     public async Task<IActionResult> AddMemberToWorkSpace(string workSpaceId, string email)
     {
 
-        if(workSpaceId == null || email == null)
+        if (workSpaceId == null || email == null)
         {
             return BadRequest(new
             {
@@ -157,7 +178,7 @@ public class HomeController : Controller
 
         ApplicationUser getUserByEmail = await _userManager.FindByEmailAsync(email);
 
-        if(getUserByEmail == null)
+        if (getUserByEmail == null)
         {
             return NotFound(new
             {
@@ -165,7 +186,7 @@ public class HomeController : Controller
             });
         }
 
-        bool isExist = await _memberWorkSpaceRepository.IsExistMemberInWorkSpace(workSpaceId,email);
+        bool isExist = await _memberWorkSpaceRepository.IsExistMemberInWorkSpace(workSpaceId, email);
 
         if (isExist)
         {
@@ -177,11 +198,12 @@ public class HomeController : Controller
 
         ApplicationUser getLoginId = await _userManager.GetUserAsync(User);
 
-        MemberWorkSpace addNewMember = new MemberWorkSpace() {
-            
+        MemberWorkSpace addNewMember = new MemberWorkSpace()
+        {
+
             OwnerID = getUserByEmail.Id,
             WorkSpaceID = workSpaceId,
-            
+
         };
 
         Notification newNotification = new Notification()
@@ -204,17 +226,18 @@ public class HomeController : Controller
         return Ok(new
         {
             message = "Data Reached Successfuly",
-            data = new {
+            data = new
+            {
                 email = getUserByEmail.Email,
                 imageUrl = getUserByEmail.ImageUrl,
-                name=getUserByEmail.Name,
-                id =getUserByEmail.Id
+                name = getUserByEmail.Name,
+                id = getUserByEmail.Id
             }
 
         });
     }
 
-    [HttpDelete("/home/DeleteMemberFromWorkSpace/{id}")] 
+    [HttpDelete("/home/DeleteMemberFromWorkSpace/{id}")]
     public async Task<IActionResult> DeleteMemberFromWorkSpace(string id)
     {
         MemberWorkSpace member = await _memberWorkSpaceRepository.GetByIdAsync(id);
@@ -249,6 +272,9 @@ public class HomeController : Controller
             message = "Error: Member not found"
         });
     }
+
+    [HttpPost]
+  
 
 
     // فيها كلام مهم كتير فوي

@@ -25,11 +25,14 @@
 
 		document.body.classList.toggle(theam);
 		const modeIcon = document.getElementById("mode-icon");
-	if (theme === "dark") {
-		modeIcon.setAttribute("src", "/img/icons/moon.svg");
-	} else {
-		modeIcon.setAttribute("src", "/img/icons/sun.svg");
-	}
+		if(modeIcon){
+
+			if (theme === "dark") {
+				modeIcon.setAttribute("src", "/img/icons/moon.svg");
+			} else {
+				modeIcon.setAttribute("src", "/img/icons/sun.svg");
+			}
+		}
 
 	}
 
@@ -44,11 +47,16 @@
 		document.body.classList.add(theme);
 
 		const modeIcon = document.getElementById("mode-icon");
-		if (theme === "dark") {
-			modeIcon.setAttribute("src", "/img/icons/moon.svg");
-		} else {
-			modeIcon.setAttribute("src", "/img/icons/sun.svg");
+
+		if(modeIcon){
+
+			if (theme === "dark") {
+				modeIcon.setAttribute("src", "/img/icons/moon.svg");
+			} else {
+				modeIcon.setAttribute("src", "/img/icons/sun.svg");
+			}
 		}
+
 	});
 
 	document.getElementById("theme-toggle-btn").addEventListener("click", switchMode);

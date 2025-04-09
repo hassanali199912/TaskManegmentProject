@@ -80,7 +80,11 @@ public class MySharedController : Controller
 			var model = new WorkSpaceWithTasksViewModel
 			{
 				WorkSpace = selectedWorkSpace,
-				Tasks = tasks
+				Tasks = tasks,
+				Message = selectedWorkSpace.Messages,
+				Members = selectedWorkSpace.Members
+				
+
 			};
 
 			return View("Shared", model);

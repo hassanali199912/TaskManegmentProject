@@ -19,13 +19,13 @@ namespace TaskManegmentProject.Repos
             
             return await _context.WorkSpaces.
                                            Where(e => e.OwnerID.Equals(id))
-                                           .Include(i => i.Tasks).Include(i => i.Members).ThenInclude(i => i.User)
+                                           .Include(i => i.Tasks).Include(m=>m.Messages).Include(i => i.Members).ThenInclude(i => i.User)
                                            .ToListAsync(); ;
         }
 
         public async Task<List<WorkSpace>> GetAllWorkSpaceThatSharedWithMe(string userId)
         {
-            return await _context.WorkSpaces
+            return await _context.WorkSpaces.Include(e=>e.Messages)
           .Include(w => w.Members)
           .ThenInclude(m => m.User)
           .Where(w => w.Members.Any(m => m.User.Id == userId))
@@ -36,8 +36,8 @@ namespace TaskManegmentProject.Repos
         public async Task<WorkSpace> GetByOwnerId(string id)
         {
             WorkSpace? data =  await _context.WorkSpaces
-                .Include(w => w.Tasks)     
-                .Include(w => w.Members)   
+                .Include(w => w.Tasks).Include(m=>m.Messages)     
+                .Include(w => w.Members).ThenInclude(m=>m.User)
                 .FirstOrDefaultAsync(w => w.Id.Equals(id));
 
 
@@ -46,7 +46,7 @@ namespace TaskManegmentProject.Repos
 
         public async Task<WorkSpace> GetByOwnerIdAndWorkSpcaeId(string ownerId, string worksapceId)
         {
-            return await _context.WorkSpaces.Include(i => i.Members).ThenInclude(i => i.User).FirstOrDefaultAsync(e=>e.OwnerID.Equals(ownerId) && e.Id.Equals(worksapceId));
+            return await _context.WorkSpaces.Include(m => m.Messages).Include(i => i.Members).ThenInclude(i => i.User).FirstOrDefaultAsync(e=>e.OwnerID.Equals(ownerId) && e.Id.Equals(worksapceId));
 
         }
     }

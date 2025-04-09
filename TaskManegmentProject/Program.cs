@@ -107,4 +107,5 @@ app.MapRazorPages()
    .WithStaticAssets();
 
 app.MapHub<NotifcationHub>("/notifcationhub");
+app.MapHub<Chat>("/chat/workspace");
 app.Run();
