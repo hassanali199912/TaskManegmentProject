@@ -17,18 +17,23 @@ namespace TaskManegmentProject.Controllers
         private readonly INotificationRepositry _notificationRepository;
         private readonly IHubContext<NotifcationHub> _hubContext;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IHubContext<StatusHub> _statusHub;
+
         public TaskController(
             ITaskRepository taskRepository,
             IWorkSpaceRepository workSpaceRepository, 
             INotificationRepositry notificationRepository,
             IHubContext<NotifcationHub> hubContext,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IHubContext<StatusHub> statusHub
+            )
         {
             _taskRepository = taskRepository;
             _workSpaceRepository = workSpaceRepository;
             _notificationRepository = notificationRepository;
             _hubContext = hubContext;
             _userManager = userManager;
+            _statusHub = statusHub;
         }
         public async Task<IActionResult> Add(string workSpaceId)
         {
@@ -165,7 +170,6 @@ namespace TaskManegmentProject.Controllers
                 return View(viewModel);
             }
 
-            // جلب الـ Task الموجودة
             MyTask task = await _taskRepository.GetByIdAsync(viewModel.Id);
             if (task == null)
             {
@@ -198,6 +202,7 @@ namespace TaskManegmentProject.Controllers
             Notification newNotificationData = await _notificationRepository.GetNotificationByIdAsync(newNotification.Id);
 
             await _hubContext.Clients.All.SendAsync("ReceiveNotification", newNotificationData);
+            await _statusHub.Clients.All.SendAsync("TaskStatusChanged",task.Id,task.Status.ToString()); 
 
             await _taskRepository.SaveAsync();
 

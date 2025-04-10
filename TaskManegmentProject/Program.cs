@@ -108,4 +108,5 @@ app.MapRazorPages()
 
 app.MapHub<NotifcationHub>("/notifcationhub");
 app.MapHub<Chat>("/chat/workspace");
+app.MapHub<StatusHub>("/statusHub");
 app.Run();
