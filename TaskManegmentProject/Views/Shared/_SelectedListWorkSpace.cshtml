@@ -86,7 +86,7 @@
 		if(response.success){
 			
 			let optionLentgh = $("#work-space-selected-list option").length +1;
-			let newOption = `<option value="${optionLentgh}">${response.workSpace.name}</option>`;
+			let newOption = `<option value="${response.workSpace.id}">${response.workSpace.name}</option>`;
 				$(".work-space-list").append(newOption);
 				$("#work-space-name").val("");
 				$("#exampleModal").modal("hide");

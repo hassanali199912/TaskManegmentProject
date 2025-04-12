@@ -37,27 +37,27 @@
 	}
 
 
-	document.addEventListener("DOMContentLoaded", function () {
-		let theme = localStorage.getItem("theme");
-		if (theme == null) {
-			theme = "light"; 
-			localStorage.setItem("theme", theme);
-		}
+	// document.addEventListener("DOMContentLoaded", function () {
+	// 	let theme = localStorage.getItem("theme");
+	// 	if (theme == null) {
+	// 		theme = "light"; 
+	// 		localStorage.setItem("theme", theme);
+	// 	}
 
-		document.body.classList.add(theme);
+	// 	document.body.classList.add(theme);
 
-		const modeIcon = document.getElementById("mode-icon");
+	// 	const modeIcon = document.getElementById("mode-icon");
 
-		if(modeIcon){
+	// 	if(modeIcon){
 
-			if (theme === "dark") {
-				modeIcon.setAttribute("src", "/img/icons/moon.svg");
-			} else {
-				modeIcon.setAttribute("src", "/img/icons/sun.svg");
-			}
-		}
+	// 		if (theme === "dark") {
+	// 			modeIcon.setAttribute("src", "/img/icons/moon.svg");
+	// 		} else {
+	// 			modeIcon.setAttribute("src", "/img/icons/sun.svg");
+	// 		}
+	// 	}
 
-	});
+	// });
 
 	document.getElementById("theme-toggle-btn").addEventListener("click", switchMode);
 </script>

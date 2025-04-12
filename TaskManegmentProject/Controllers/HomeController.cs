@@ -58,7 +58,6 @@ public class HomeController : Controller
     public async Task<IActionResult> Index(string id)
     {
 
-
         ApplicationUser authUser = await _userManager.GetUserAsync(User);
         List<WorkSpace> WorkData =
             await _workSpaceRepository.GetAllWorkSpaceByOwnerId(authUser.Id);
@@ -161,7 +160,6 @@ public class HomeController : Controller
             }
         });
     }
-
 
     [HttpPost]
     [ValidateAntiForgeryToken]

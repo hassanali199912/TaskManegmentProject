@@ -212,5 +212,35 @@ namespace TaskManegmentProject.Controllers
             });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> DeleteTask(string taskId)
+        {
+
+            ApplicationUser getUser = await _userManager.GetUserAsync(User);
+            var task = await _taskRepository.GetByIdAsync(taskId);
+            if (task == null)
+                return NotFound();
+
+            Notification newNotification = new Notification()
+            {
+                UserId = getUser.Id,
+                WorkspaceId = task.WorkSpaceId,
+                Action = Enums.NotificationAction.TaskDeleted,
+                IsReaded = false
+            };
+            await _notificationRepository.CreateAsync(newNotification);
+            //await _notificationRepository.SaveAsync();
+            //List<Notification> allRelatedNot = await _notificationRepository.GetAllNotifcationByTaskId(taskId);
+
+            await _taskRepository.DeleteAsync(taskId);
+            await _taskRepository.SaveAsync();
+
+            return RedirectToAction("Index", "Home", new { id = task.WorkSpaceId });
+
+
+
+        }
+
+
     }
 }

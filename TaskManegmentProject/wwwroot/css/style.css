@@ -25,6 +25,9 @@
     /*resiver massage*/
     --resive-ms-color: #f4f3f4;
     --send-ms-color: #e8eafe;
+    --text-ch-color: #fff;
+    --body-ch-color:#fff;
+
 }
 
 body.dark {
@@ -488,11 +491,12 @@ table {
     align-items: center;
     border: 1px solid var(--gray-color);
     padding: 1rem 3rem;
-    margin: 1rem 0;
+    margin: 3rem 0;
     border-radius: 15px;
     background-color: var(--light-hover-dark);
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    text-decoration:none;
 }
 
     .auth-page-container .btn-auth h4 {
@@ -677,6 +681,7 @@ table {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap:wrap;
     padding: 0.5rem 1rem;
     border-radius: 10px;
     width: 100%;
@@ -1018,20 +1023,29 @@ table {
         justify-content: space-between;
     }
 
+.add-task-btn{
+    text-decoration:none
+}
 
 
 
-        .task-section .task-section-content .task-card .task-card-content-container h3 {
-            font-size: .8rem;
-            font-weight: bold;
-            padding: 0 0 0.8rem 0;
-            text-transform: capitalize
-        }
+.task-section .task-section-content .task-card .task-card-content-container h3 {
+    font-size: .8rem;
+    font-weight: bold;
+    padding: 0 0 0.8rem 0;
+    text-transform: capitalize
+}
 
-        .task-section .task-section-content .task-card .task-card-content-container p {
-            font-size: .7rem;
-            line-height: 1.5;
-        }
+.task-section .task-section-content .task-card .task-card-content-container p {
+    font-size: .7rem;
+    line-height: 1.5; 
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: Arial, sans-serif;
+}
 
         .task-section .task-section-content .task-card .task-card-container h6 {
             font-size: .8rem;
@@ -1039,10 +1053,17 @@ table {
         }
 
 
-        .task-section .task-section-content .task-card .task-card-footer {
+        .task-section .task-section-content .task-card .task-card-footer  {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap:wrap;
+        }
+        
+        .task-section .task-section-content .task-card .task-card-footer button,
+        .task-section .task-section-content .task-card .task-card-footer div
+        {
+            padding : 0.3rem 0 0  0;
         }
 
             .task-section .task-section-content .task-card .task-card-footer .state-btn {
@@ -1529,6 +1550,7 @@ table {
     display:none;
     opacity:0;
     transition:all 0.8s ease;
+    border:1px solid var(--dark-color);
 
 }
 .chat-box-content.active {
@@ -1558,15 +1580,16 @@ table {
     object-fit: cover;
 }
 .chat-box-header-members .header-text {
-    color: var(--white-color);
+    color: var(--text-ch-color);
 }
 
 .chat-box-body {
     height: calc((( 300px * 1.5 ) - 80px ));
     width:100%;
-    background-color: var(--white-color);
+    background-color: var(--body-ch-color);
     overflow:auto;
     padding-bottom:5rem ;
+    
 }
 .chat-text-message-controllers{
     position:absolute;
@@ -1577,7 +1600,7 @@ table {
     display:flex;
     border-top:1px solid var(--gray-color);
     padding:10px 5px;
-    background-color:var(--white-color);
+    background-color:var(--body-ch-color);
 }
 .chat-text-message-controllers textarea {
     width:100%;

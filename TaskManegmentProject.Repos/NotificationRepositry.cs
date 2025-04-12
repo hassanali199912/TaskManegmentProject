@@ -24,9 +24,12 @@ namespace TaskManegmentProject.Repos
                 ToListAsync();
         }
 
-      
+        public async Task<List<Notification>> GetAllNotifcationByTaskId(string id)
+        {
+            return await _context.Notification.Where(e => e.TaskId.Equals(id)).ToListAsync();
+        }
 
-       public async Task<Notification> GetNotificationByIdAsync(string Id)
+        public async Task<Notification> GetNotificationByIdAsync(string Id)
         {
             return await
                 _context.

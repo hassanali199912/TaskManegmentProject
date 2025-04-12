@@ -24,5 +24,7 @@ namespace TaskManegmentProject.DBcontcion
         [ForeignKey("AssignTo")]
         public ApplicationUser AssignUser { get; set; }
 
+        public List<Notification> Notifications { get; set; }
+
     }
 }

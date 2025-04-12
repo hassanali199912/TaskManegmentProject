@@ -8,11 +8,11 @@
 	var x = user.Name;
 	var imageUrl = user.ImageUrl;
 }
-<section class="side-nav-bar false card">
+<section class="side-nav-bar   card" id="side-nav-id"> 
 	<nav>
-		<div class="menue-div"><i class="fa-solid fa-arrow-right"></i></div>
+		<div class="menue-div" onclick="toggleSideMenu()"><i class="fa-solid fa-arrow-right"></i></div>
 		<a class="profile-div" asp-controller="profile" asp-action="index">
-			<img src="@(imageUrl ?? "~/img/avatar-images/avatar-1.jpeg")"
+			<img src="@(imageUrl ?? "/img/avatar-images/avatar-1.jpeg")"
 				 alt="profile-pic">
 			<p>
 				@x
@@ -32,3 +32,11 @@
 		</div>
 	</nav>
 </section>
+
+
+
+<script>
+	function toggleSideMenu(){
+		$("#side-nav-id").toggleClass("active");
+	}
+</script>

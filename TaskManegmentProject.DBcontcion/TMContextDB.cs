@@ -40,6 +40,12 @@ namespace TaskManegmentProject.DBcontcion
                 .Property(p =>p.Action)
                 .HasConversion<string>();
 
+            modelBuilder.Entity<MyTask>()
+                  .HasMany(t => t.Notifications) 
+                  .WithOne(n => n.Task)         
+                  .HasForeignKey(n => n.TaskId)  
+                  .OnDelete(DeleteBehavior.SetNull);
+
         }
     }
 }

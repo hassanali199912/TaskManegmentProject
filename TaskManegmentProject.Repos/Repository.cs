@@ -69,7 +69,6 @@ namespace TaskManegmentProject.Repos
             if (entity != null)
             {
                 _context.Set<T>().Remove(entity);
-                await _context.SaveChangesAsync();
             }
         }
         public async Task DeleteAsync(Guid id)
@@ -78,7 +77,6 @@ namespace TaskManegmentProject.Repos
             if (entity != null)
             {
                 _context.Set<T>().Remove(entity);
-                await _context.SaveChangesAsync();
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Identity;
@@ -198,6 +199,89 @@ namespace TaskManegmentProject.Controllers
             }
 
 
+        }
+
+
+
+        [HttpGet]
+        public IActionResult LoginWithGoogle()
+        {
+            var redirectUrl = Url.Action("GoogleCallback", "Account", null, Request.Scheme);
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(GoogleDefaults.AuthenticationScheme, redirectUrl);
+            return new ChallengeResult(GoogleDefaults.AuthenticationScheme, properties);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GoogleCallback()
+        {
+            try
+            {
+                var info = await _signInManager.GetExternalLoginInfoAsync();
+                if (info == null)
+                {
+                    _logger.LogError("External login info is null during Google callback.");
+                    return RedirectToAction("Login");
+                }
+
+                var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: true, bypassTwoFactor: true);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User logged in with Google successfully.");
+                    return RedirectToAction("Index", "Home");
+                }
+
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                var name = info.Principal.FindFirstValue(ClaimTypes.Name);
+
+                if (string.IsNullOrEmpty(email))
+                {
+                    _logger.LogError("Email not provided by Google.");
+                    return RedirectToAction("Login");
+                }
+
+                var user = await _userManager.FindByEmailAsync(email);
+                if (user == null)
+                {
+                    user = new ApplicationUser
+                    {
+                        UserName = email,
+                        Email = email,
+                        Name = name ?? email.Split('@')[0] 
+                    };
+
+                    var createResult = await _userManager.CreateAsync(user);
+                    if (!createResult.Succeeded)
+                    {
+                        _logger.LogError("Failed to create user during Google login: {Errors}", createResult.Errors.Select(e => e.Description));
+                        return RedirectToAction("Login");
+                    }
+
+                    var addLoginResult = await _userManager.AddLoginAsync(user, info);
+                    if (!addLoginResult.Succeeded)
+                    {
+                        _logger.LogError("Failed to add Google login to user: {Errors}", addLoginResult.Errors.Select(e => e.Description));
+                        return RedirectToAction("Login");
+                    }
+
+                    var work = new WorkSpace
+                    {
+                        Name = "First Work Space",
+                        OwnerID = user.Id
+                    };
+                    await _workSpaceContextl.CreateAsync(work);
+                    await _workSpaceContextl.SaveAsync();
+                }
+
+                await _signInManager.SignInAsync(user, isPersistent: true);
+                _logger.LogInformation("User {Email} logged in with Google and account created successfully.", email);
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred during Google callback.");
+                return RedirectToAction("Login");
+            }
         }
 
         public async Task<IActionResult> Logout()

@@ -11,5 +11,7 @@ namespace TaskManegmentProject.Repos
     {
         Task<Notification> GetNotificationByIdAsync(string Id);
         Task<List<Notification>> GetAllByWorkSpaceId(string Id);
+
+        Task<List<Notification>> GetAllNotifcationByTaskId(string id);
     }
 }
